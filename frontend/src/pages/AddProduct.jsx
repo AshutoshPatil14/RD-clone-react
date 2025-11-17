@@ -1,0 +1,1 @@
+// AddProduct.jsx placeholder

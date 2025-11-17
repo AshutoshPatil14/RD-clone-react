@@ -1,153 +1,167 @@
 import React from "react";
-import "../styles/navbar.css"
+import { Link } from "react-router-dom";
 
-
-
+// Header/Navbar component replicating the HTML header structure
+// Uses public assets under `/images` and `/icons` and React Router `Link`s
 const Navbar = () => {
   return (
-    <div className="header">
+    <header>
+      {/* Upper header: small text links */}
       <div className="upper-header">
         <div className="text-navs">
-          <a href="">Orders</a>
-          <a href="">Contact us</a>
-          <a href="">Resource Center</a>
-          <a href="">Find a store</a>
+          <Link to="/account/orders">Orders</Link>
+          <a href="#">Contact us</a>
+          <a href="#">Resource Center</a>
+          <a href="#">Find a store</a>
         </div>
+        {/* Search/logo/profile strip */}
         <div className="search-bar-section">
           <div className="logo">
-            <a href="/">
-              <img src="./src/assets/images/logo-white.webp" alt="Reliance Digital Logo" />
-            </a>
+            <Link to="/">
+              <img src="/images/logo-white.webp" alt="Reliance Digital Logo" />
+            </Link>
           </div>
           <div className="search-bar">
-            <img src="./src/assets/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="Search" />
+            <img
+              src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Search"
+            />
             <input type="text" placeholder="Search Products & Brands" />
           </div>
           <div className="profile-items">
             <div className="profile-item">
-              <a href="../html/login.html">
+              <Link to="/login">
                 <img
-                  src="./src/assets/icons/person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                  src="/icons/person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
                   alt="Account"
                 />
                 <span>Login</span>
-              </a>
+              </Link>
             </div>
             <div className="profile-item">
-              <a href="../html/my-wishlist.html">
+              <a href="#">
                 <img
-                  src="./src/assets/icons/favorite_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                  src="/icons/favorite_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
                   alt="Wishlist"
                 />
                 <span>Wishlist</span>
               </a>
             </div>
             <div className="profile-item">
-              <a href="../html/cart.html">
+              <Link to="/cart">
                 <img
-                  src="./src/assets/icons/shopping_cart_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                  src="/icons/shopping_cart_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
                   alt="Cart"
                 />
                 <span>Cart</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
+        {/* Mobile search bar and mic icon */}
         <div className="middle-header">
           <div className="mobile-search-bar">
-            <img src="../src/assets/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+            <img
+              src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
+              alt=""
+            />
             <input type="text" placeholder="Search Products & Brands" />
           </div>
           <div className="mic-icon">
-            <img src="../src/assets/icons/mic_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.svg" alt="" />
+            <img
+              src="/icons/mic_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.svg"
+              alt=""
+            />
           </div>
         </div>
       </div>
+
+      {/* Lower header: category navigation */}
       <div className="lower-header">
         <nav>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/jJc56F0NF-menu_Mobiles.png"
-              alt=""
+              alt="Mobiles"
             />
-            <a href="./mobile-section.html">MOBILES</a>
+            <Link to="/mobiles">MOBILES</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/ro7KmfkN_-menu_Television.png"
-              alt=""
+              alt="Televisions"
             />
-            <a href="">TELEVISIONS</a>
+            <a href="#">TELEVISIONS</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/HAT8U8-9N-Primary-Menu.jpeg"
-              alt=""
+              alt="Washing Machines"
             />
-            <a href="">WASHING MACHINES</a>
+            <a href="#">WASHING MACHINES</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/MO-msO1GU-menu_Laptop.png"
-              alt=""
+              alt="Laptops"
             />
-            <a href="">LAPTOPS</a>
+            <a href="#">LAPTOPS</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/GhVsBI1rO-Primary-Menu.png"
-              alt=""
+              alt="Small Appliances"
             />
-            <a href="">SMALL APPLIANCES</a>
+            <a href="#">SMALL APPLIANCES</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/6kAylQ0cV-menu_Accessories.png"
-              alt=""
+              alt="Air Conditioners"
             />
-            <a href="">AIR CONDITIONERS</a>
+            <a href="#">AIR CONDITIONERS</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/LXuLXjYf5-menu_Earphones.png"
-              alt=""
+              alt="Earphones"
             />
-            <a href="">EARPHONES</a>
+            <a href="#">EARPHONES</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/2DoKFV_Ss-Primary-Menu.jpeg"
-              alt=""
+              alt="Tablets"
             />
-            <a href="">TABLETS</a>
+            <a href="#">TABLETS</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/mXaE3y_7l-menu_Kitchen-Appliances.png"
-              alt=""
+              alt="Refrigerators"
             />
-            <a href="">REFRIGERATORS</a>
+            <a href="#">REFRIGERATORS</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvMZUb1Xg-Primary-Menu.png"
-              alt=""
+              alt="Smart Watches"
             />
-            <a href="">SMART WATCHES</a>
+            <a href="#">SMART WATCHES</a>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvinFGkVU-Primary-Menu.png"
-              alt=""
+              alt="All Categories"
             />
-            <a href="">ALL CATEGORIES</a>
+            <a href="#">ALL CATEGORIES</a>
           </div>
         </nav>
         <div className="filter">
           <button>Filter by Categories</button>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

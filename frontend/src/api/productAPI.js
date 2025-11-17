@@ -1,0 +1,1 @@
+// productAPI.js placeholder
