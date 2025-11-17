@@ -19,7 +19,6 @@ header {
 }
 
 .upper-header {
-  max-width: var(--site-max);
   margin: 0 auto;
   padding-bottom: 12px;
 }

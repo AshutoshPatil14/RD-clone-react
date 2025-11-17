@@ -4,7 +4,7 @@ import "../styles/single-mobile-product-page.css";
 // Single mobile product detail page (visual only)
 const SingleMobileProduct = () => {
   return (
-    <main>
+    <div className="single-product-container">
       <section className="product-container">
         {/* Left: product images */}
         <div className="product-images">
@@ -131,7 +131,7 @@ const SingleMobileProduct = () => {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 

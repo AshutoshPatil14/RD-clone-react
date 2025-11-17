@@ -253,6 +253,13 @@ header {
     align-items: center;
 }
 
+.sort-bar h4 {
+    font-size: 20px;
+    color: #333;
+}
+
+
+
 .sort-bar button {
     display: flex;
     border: 1px solid #cccccc;

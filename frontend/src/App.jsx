@@ -10,6 +10,8 @@ import SingleMobileProduct from "./pages/SingleMobileProduct";
 import MyAccount from "./pages/MyAccount";
 import MyOrders from "./pages/MyOrders";
 import MyAddresses from "./pages/MyAddresses";
+import MyWishlist from "./pages/MyWishlist";
+import AccountPage from "./pages/AccountPage";
 import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";

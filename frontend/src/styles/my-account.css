@@ -1,0 +1,217 @@
+.my-account-container {
+  max-width: var(--site-max);
+  margin: 20px auto;
+  padding: 0 32px;
+  display: flex;
+  gap: 20px;
+}
+
+.left-section {
+  flex: 0 0 280px;
+  max-width: 300px;
+  height: fit-content;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-section p {
+  font-size: 14px;
+  color: black;
+  font-weight: 600;
+  padding: 10px 20px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.profile-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e3e3f7;
+  padding: 20px;
+}
+
+.profile-name img {
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.account-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-links a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+}
+
+.account-links a.selected {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.account-links a img {
+  width: 20px;
+}
+
+.right-section {
+  flex: 1;
+  width: 100%; /* Ensure consistent width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.profile-details-container,
+.orders-container,
+.addresses-container,
+.wishlist-container {
+  padding: 20px;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.heading h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.profile-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-details-header p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.edit-btn img {
+  width: 16px;
+  filter: invert(1);
+}
+
+.profile-info .info-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.profile-info .label {
+  font-weight: 500;
+  width: 150px;
+}
+
+.profile-info .value {
+  color: #555;
+}
+
+.order-details-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.order-details-card {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.order-details-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.order-details-card .product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.order-details-card .product-details p {
+  font-weight: 500;
+}
+
+.order-details-card .product-details h4 {
+  color: #007bff;
+  margin-top: 5px;
+}
+
+.delivery-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.address-card {
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.address-card h4 {
+  margin-bottom: 10px;
+}
+
+.address-card p {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.address-actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.address-actions button:last-child {
+  background-color: #dc3545;
+}
+
+.wishlist-container p {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+  color: #777;
+}
