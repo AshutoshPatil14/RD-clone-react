@@ -1,9 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/axiosConfig";
+import { logout } from "../features/authSlice";
+import toast from "react-hot-toast";
 
 // Header/Navbar component replicating the HTML header structure
 // Uses public assets under `/images` and `/icons` and React Router `Link`s
 const Navbar = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = async () => {
+    try {
+      const response = await api.post("/auth/logout");
+      if (response.status === 200) {
+        dispatch(logout());
+        toast.success("Logged out successfully");
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Logout failed");
+    }
+  };
+
   return (
     <header>
       {/* Upper header: small text links */}
@@ -29,15 +51,17 @@ const Navbar = () => {
             <input type="text" placeholder="Search Products & Brands" />
           </div>
           <div className="profile-items">
-            <div className="profile-item">
-              <Link to="/login">
-                <img
-                  src="/icons/person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
-                  alt="Account"
-                />
-                <span>Login</span>
-              </Link>
-            </div>
+            {!user && (
+              <div className="profile-item">
+                <Link to="/login">
+                  <img
+                    src="/icons/person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                    alt="Account"
+                  />
+                  <span>Login</span>
+                </Link>
+              </div>
+            )}
             <div className="profile-item">
               <a href="#">
                 <img
@@ -56,6 +80,15 @@ const Navbar = () => {
                 <span>Cart</span>
               </Link>
             </div>
+            {user && (
+              <div className="profile-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
+                <img
+                  src="/icons/logout_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                  alt="Logout"
+                />
+                <span>Logout</span>
+              </div>
+            )}
           </div>
         </div>
         {/* Mobile search bar and mic icon */}

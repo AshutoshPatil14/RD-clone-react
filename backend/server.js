@@ -2,22 +2,26 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
-import productRoutes from "./routes/productRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
+import cookieParser from "cookie-parser";
+import mainRouter from "./routes/mainRouter.js";
 
-dotenv.config();
 const app = express();
+dotenv.config();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(express.urlencoded({ extended: true }));
+
+const corsOptions = { origin: "http://localhost:5173", credentials: true };
+
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
 connectDB();
 
-app.use("/api/v1/products", productRoutes);
-app.use("/api/v1/users", userRoutes);
-
 app.get("/", (req, res) => {
-  res.send("Reliance Digital API running...");
+  res.send(`Welcome to Reliance Digital!`);
 });
 
-const PORT = process.env.PORT || 5000;
+app.use("/api/v1", mainRouter);
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

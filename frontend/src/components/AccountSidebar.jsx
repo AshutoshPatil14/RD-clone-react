@@ -1,8 +1,27 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import api from '../api/axiosConfig';
+import { logout } from '../features/authSlice';
+import toast from 'react-hot-toast';
 
 const AccountSidebar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await api.post('/auth/logout');
+      if (response.status === 200) {
+        dispatch(logout());
+        toast.success('Logged out successfully');
+        navigate('/');
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Logout failed');
+    }
+  };
 
   return (
     <div className="left-section">
@@ -28,10 +47,10 @@ const AccountSidebar = () => {
           <img src="/icons/favorite_24dp_434343.FILL1_wght400_GRAD0_opsz24.svg" alt="" />
           <span>My Wishlist</span>
         </Link>
-        <a href="#">
+        <button onClick={handleLogout} className="link-button" style={{ display: 'flex', alignItems: 'center', gap: '5px', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
           <img src="/icons/logout_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="" />
           <span>Logout</span>
-        </a>
+        </button>
       </div>
     </div>
   );

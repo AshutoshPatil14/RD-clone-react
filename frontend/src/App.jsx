@@ -18,10 +18,35 @@ import PaymentFailed from "./pages/PaymentFailed";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import api from "./api/axiosConfig";
+import { loginSuccess } from "./features/authSlice";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  async function getUserData() {
+    try {
+      const response = await api.get("/auth/get-current-user");
+      console.log("user data", response.data);
+
+      if (response.status === 200) {
+        dispatch(loginSuccess(response.data.user));
+        console.log("User object after loginSuccess:", response.data.user); // Added this line
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+
+  useEffect(() => {
+    if (!user) {
+      getUserData();
+    }
+  }, [user]);
+
   return (
     <Router>
       <Navbar />
