@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const Login = async (req, res) => {
-  const {role, email, password } = req.body || {};
+  const { role, email, password } = req.body || {};
 
   // check for empty fields
   if (!role || !email || !password) {
@@ -42,13 +42,10 @@ export const Login = async (req, res) => {
 export const Register = async (req, res) => {
   // console.log(req.body, "req");
 
-  const {role, fname, lname, gender, email, password } = req.body || {};
-  // console.log(role, "role")
-  // console.log(name, "name")
-  // console.log(email, "email")
-  // console.log(password, "password")
+  const { role, fname, lname, gender, email, password } = req.body || {};
+
   //check for empty fields
-  if (!role || !fname || !lname || !gender || !email || !password) {  
+  if (!role || !fname || !lname || !gender || !email || !password) {
     return res.status(400).json({ message: "Please fill the missing fields", success: false });
   }
 
@@ -63,30 +60,40 @@ export const Register = async (req, res) => {
   // create new user
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = new User({role, fname, lname, gender, email, password: hashedPassword });
+  const user = new User({ role, fname, lname, gender, email, password: hashedPassword });
   await user.save();
   res.status(201).json({ message: "Thanks for registering!\nYou can now log in.", success: true });
 };
 
 export const getCurrentUser = async (req, res) => {
-  try{
+  try {
     // const token = req.cookies.token
     // console.log("Token form cookies", token)
 
-     const isUserExist = await User.findById(req.userId)
-    if(!isUserExist){
+    const userId = req.user._id;
+
+    const isUserExist = await User.findById(userId);
+    console.log(isUserExist, "isUserExist");
+    if (!isUserExist) {
       return res.status(404).json({ message: "User not found", success: false });
-    } 
+    }
 
     return res.status(200).json({
       message: "Login Successful",
       success: true,
-      user: { userId: isUserExist._id, fname: isUserExist.fname, lname: isUserExist.lname, gender: isUserExist.gender, email: isUserExist.email, role: isUserExist.role },
-    })
-  }catch(error){
+      user: {
+        userId: isUserExist._id,
+        fname: isUserExist.fname,
+        lname: isUserExist.lname,
+        gender: isUserExist.gender,
+        email: isUserExist.email,
+        role: isUserExist.role,
+      },
+    });
+  } catch (error) {
     return res.status(401).json({ message: "Unauthorized", success: false });
   }
-}
+};
 
 export const Logout = (req, res) => {
   try {

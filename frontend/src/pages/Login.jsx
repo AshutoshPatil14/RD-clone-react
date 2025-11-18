@@ -43,9 +43,11 @@ const Login = () => {
       try {
         const response = await api.post("/auth/login", userDetails);
 
+        console.log(response.data.user, "response.data.user")
         if (response.status === 200) {
           // Store user data in Redux
           dispatch(loginSuccess(response.data.user));
+          console.log("Redux auth state after login:", response.data.user);
 
           toast.success(
             `Hi ${response.data.user.name || userDetails.email}, \nYou are logged in successfully`
