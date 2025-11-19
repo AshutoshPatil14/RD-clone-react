@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 // Header/Navbar component replicating the HTML header structure
 // Uses public assets under `/images` and `/icons` and React Router `Link`s
 const Navbar = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -44,10 +43,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="search-bar">
-            <img
-              src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
-              alt="Search"
-            />
+            <img src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="Search" />
             <input type="text" placeholder="Search Products & Brands" />
           </div>
           <div className="profile-items">
@@ -62,30 +58,53 @@ const Navbar = () => {
                 </Link>
               </div>
             )}
-            <div className="profile-item">
-              <a href="#">
-                <img
-                  src="/icons/favorite_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
-                  alt="Wishlist"
-                />
-                <span>Wishlist</span>
-              </a>
-            </div>
-            <div className="profile-item">
-              <Link to="/cart">
-                <img
-                  src="/icons/shopping_cart_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
-                  alt="Cart"
-                />
-                <span>Cart</span>
-              </Link>
-            </div>
+            {user?.role === "seller" && (
+              <div className="profile-item">
+                <Link to="/add-product">
+                  <img
+                    src="/frontend/public/icons/box_add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                    alt="Add Product"
+                  />
+                  <span>Add Product</span>
+                </Link>
+              </div>
+            )}
+            {user?.role === "seller" && (
+              <div className="profile-item">
+                <Link to="/view-products">
+                  <img
+                    src="/frontend/public/icons/view_agenda_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                    alt="View Products"
+                  />
+                  <span>View Products</span>
+                </Link>
+              </div>
+            )}
+            {user?.role === "user" && (
+              <div className="profile-item">
+                <Link to="/wishlist">
+                  <img
+                    src="/icons/favorite_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                    alt="Wishlist"
+                  />
+                  <span>Wishlist</span>
+                </Link>
+              </div>
+            )}
+            {user?.role === "user" && (
+              <div className="profile-item">
+                <Link to="/cart">
+                  <img
+                    src="/icons/shopping_cart_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                    alt="Cart"
+                  />
+                  <span>Cart</span>
+                </Link>
+              </div>
+            )}
             {user && (
               <div className="profile-item" onClick={handleLogout} style={{ cursor: "pointer" }}>
-                <img
-                  src="/icons/logout_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
-                  alt="Logout"
-                />
+                <img src="/icons/logout_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="Logout" />
                 <span>Logout</span>
               </div>
             )}
@@ -94,17 +113,11 @@ const Navbar = () => {
         {/* Mobile search bar and mic icon */}
         <div className="middle-header">
           <div className="mobile-search-bar">
-            <img
-              src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
-              alt=""
-            />
+            <img src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
             <input type="text" placeholder="Search Products & Brands" />
           </div>
           <div className="mic-icon">
-            <img
-              src="/icons/mic_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.svg"
-              alt=""
-            />
+            <img src="/icons/mic_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.svg" alt="" />
           </div>
         </div>
       </div>

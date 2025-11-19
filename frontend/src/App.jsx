@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "./api/axiosConfig";
 import { loginSuccess } from "./features/authSlice";
 import { useEffect } from "react";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,11 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment/success" element={<PaymentSuccess />} />
         <Route path="/payment/failed" element={<PaymentFailed />} />
+        {/* User */}
+        <Route path="/wishlist" element={<MyWishlist />} />
+        {/* Seller */}
+        <Route path="/add-product" element={<AddProduct />} />
+        {/* <Route path="/view-products" element={<ViewProducts />} /> */}
       </Routes>
       <Footer />
       <Toaster
