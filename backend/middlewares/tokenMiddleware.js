@@ -3,7 +3,6 @@ import User from "../models/userModel.js";
 
 export const tokenDecoder = async (req, res, next) => {
   try {
-
     if (req.path === "/api/v1/auth/login" || req.path === "/api/v1/auth/register") {
       return next();
     }

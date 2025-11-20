@@ -71,7 +71,7 @@ const Navbar = () => {
             )}
             {user?.role === "seller" && (
               <div className="profile-item">
-                <Link to="/view-products">
+                <Link to="/view-seller-products">
                   <img
                     src="/frontend/public/icons/view_agenda_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
                     alt="View Products"
@@ -125,6 +125,13 @@ const Navbar = () => {
       {/* Lower header: category navigation */}
       <div className="lower-header">
         <nav>
+          <div className="header-navs">
+            <img
+              src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvinFGkVU-Primary-Menu.png"
+              alt="Mobiles"
+            />
+            <Link to="/all-products">ALL PRODUCTS</Link>
+          </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/jJc56F0NF-menu_Mobiles.png"
@@ -195,13 +202,7 @@ const Navbar = () => {
             />
             <a href="#">SMART WATCHES</a>
           </div>
-          <div className="header-navs">
-            <img
-              src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvinFGkVU-Primary-Menu.png"
-              alt="All Categories"
-            />
-            <a href="#">ALL CATEGORIES</a>
-          </div>
+
         </nav>
         <div className="filter">
           <button>Filter by Categories</button>

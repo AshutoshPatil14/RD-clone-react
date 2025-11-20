@@ -12,6 +12,7 @@ function AddProduct() {
 
   const [product, setProduct] = useState({
     name: "",
+    color: "",
     price: "",
     category: "",
     stock: "",
@@ -27,6 +28,7 @@ function AddProduct() {
     }));
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,6 +41,7 @@ function AddProduct() {
       alert("Product added successfully!");
       setProduct({
         name: "",
+        color: "",
         price: "",
         category: "",
         stock: "",
@@ -68,6 +71,21 @@ function AddProduct() {
         </div>
 
         <div className="form-group">
+          <label htmlFor="color">Color:</label>
+          <select name="color" id="color" value={product.color} onChange={handleChange} required>
+            <option value="">Select Color</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="yellow">Yellow</option>
+            <option value="orange">Orange</option>
+            <option value="purple">Purple</option>
+            <option value="black">Black</option>
+            <option value="white">White</option>
+          </select>
+        </div>
+
+        <div className="form-group">
           <label htmlFor="price">Price:</label>
           <input
             type="number"
@@ -81,13 +99,19 @@ function AddProduct() {
 
         <div className="form-group">
           <label htmlFor="category">Category:</label>
-          <input
-            type="text"
-            id="category"
-            name="category"
-            value={product.category}
-            onChange={handleChange}
-          />
+          <select name="category" id="category" value={product.category} onChange={handleChange} required>
+            <option value="">Select Category</option>
+            <option value="laptop">Laptop</option>
+            <option value="mobile">Mobile</option>  
+            <option value="tablet">Tablet</option>
+            <option value="tv">TV</option>
+            <option value="headphone">Headphone</option>
+            <option value="speaker">Speaker</option>
+            <option value="camera">Camera</option>
+            <option value="smart-watch">Smart Watch</option>
+            <option value="washing-machine">Washing Machine</option>
+            <option value="refrigerator">Refrigerator</option>
+          </select>
         </div>
 
         <div className="form-group">
