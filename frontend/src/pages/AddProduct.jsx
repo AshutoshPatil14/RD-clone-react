@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import api from "../api/axiosConfig";
 import "../styles/add-product.css";
+import toast from "react-hot-toast";
 
 function AddProduct() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user)
-  const userId = user?.userId;
+  const userId = user.userId;
+  // console.log(userId, "userId");
   // const seller = userId;
 
   const [product, setProduct] = useState({
@@ -15,10 +16,8 @@ function AddProduct() {
     category: "",
     stock: "",
     imgUrl: "",
-    sellerId: userId , 
+    sellerId: userId,
   });
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,23 +30,24 @@ function AddProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(product)
-    
+    // console.log(product)
+
+    // console.log(product, "from frontend, above api");
     try {
       const response = await api.post("/seller/add-product", product);
       console.log("Product Added:", response.data);
-      alert('Product added successfully!');
+      alert("Product added successfully!");
       setProduct({
-        name: '',
-        price: '',
-        category: '',
-        stock: '',
-        imgUrl: '',
+        name: "",
+        price: "",
+        category: "",
+        stock: "",
+        imgUrl: "",
         sellerId: userId,
       });
     } catch (error) {
-      console.error("Error adding product:", error);
-      alert("Error adding product. Please try again.");
+      toast.error("Error adding product:", error);
+      // alert("Error adding product. Please try again.");
     }
   };
 
@@ -114,7 +114,9 @@ function AddProduct() {
           />
         </div>
 
-        <button type="submit" className="submit-button">Add Product</button>
+        <button type="submit" className="submit-button">
+          Add Product
+        </button>
       </form>
     </div>
   );
