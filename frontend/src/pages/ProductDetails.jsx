@@ -1,9 +1,10 @@
 import React from "react";
-import SingleMobileProduct from "./SingleMobileProduct";
+
+import SingleProductPage from "./SingleProductPage";
 
 // Reuse the single product layout for generic product detail route
 const ProductDetails = () => {
-  return <SingleMobileProduct />;
+  return <SingleProductPage />;
 };
 
 export default ProductDetails;

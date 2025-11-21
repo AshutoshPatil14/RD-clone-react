@@ -1,15 +1,14 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
-import "../styles/add-product.css";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import "../styles/add-product.css"; // Reusing add-product styles for now
+import { useSelector } from "react-redux";
 
-function AddProduct() {
-  const user = useSelector((state) => state.auth.user);
-  const userId = user.userId;
-  // console.log(userId, "userId");
-  // const seller = userId;
-
+const EditProductPage = () => {
+  const { id } = useParams();
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [product, setProduct] = useState({
     name: "",
     color: "",
@@ -17,8 +16,27 @@ function AddProduct() {
     category: "",
     stock: "",
     imgUrl: "",
-    sellerId: userId,
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await api.get(`/products/${id}`);
+        if (response.status === 200) {
+          setProduct(response.data.product);
+        }
+      } catch (error) {
+        setError(error);
+        toast.error(error.response?.data?.message || "Failed to fetch product details for editing");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,35 +46,31 @@ function AddProduct() {
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // console.log(product)
-
-    // console.log(product, "from frontend, above api");
     try {
-      const response = await api.post("/seller/add-product", product);
-      console.log("Product Added:", response.data);
-      alert("Product added successfully!");
-      setProduct({
-        name: "",
-        color: "",
-        price: "",
-        category: "",
-        stock: "",
-        imgUrl: "",
-        sellerId: userId,
-      });
+      const response = await api.put(`/seller/edit-product/${id}`, { ...product, sellerId: user.userId });
+      // const response = await api.put(`/seller/update-product/${id}`, product);
+      if (response.status === 200) {
+        toast.success("Product updated successfully!");
+        navigate("/view-products"); // Navigate back to seller's products page
+      }
     } catch (error) {
-      toast.error("Error adding product:", error);
-      // alert("Error adding product. Please try again.");
+      toast.error(error.response?.data?.message || "Failed to update product");
     }
   };
 
+  if (loading) {
+    return <div className="loading-indicator">Loading product details...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">Error: {error.message}</div>;
+  }
+
   return (
     <div className="add-product-container">
-      <h2>Add New Product</h2>
+      <h2>Edit Product</h2>
       <form onSubmit={handleSubmit} className="add-product-form">
         <div className="form-group">
           <label htmlFor="name">Product Name:</label>
@@ -102,7 +116,7 @@ function AddProduct() {
           <select name="category" id="category" value={product.category} onChange={handleChange} required>
             <option value="">Select Category</option>
             <option value="laptop">Laptop</option>
-            <option value="mobile">Mobile</option>  
+            <option value="mobile">Mobile</option>
             <option value="tablet">Tablet</option>
             <option value="tv">TV</option>
             <option value="headphone">Headphone</option>
@@ -139,11 +153,11 @@ function AddProduct() {
         </div>
 
         <button type="submit" className="submit-button">
-          Add Product
+          Update Product
         </button>
       </form>
     </div>
   );
-}
+};
 
-export default AddProduct;
+export default EditProductPage;

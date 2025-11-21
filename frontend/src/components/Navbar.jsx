@@ -62,7 +62,7 @@ const Navbar = () => {
               <div className="profile-item">
                 <Link to="/add-product">
                   <img
-                    src="/frontend/public/icons/box_add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                    src="/icons/box_add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
                     alt="Add Product"
                   />
                   <span>Add Product</span>
@@ -73,7 +73,7 @@ const Navbar = () => {
               <div className="profile-item">
                 <Link to="/view-products">
                   <img
-                    src="/frontend/public/icons/view_agenda_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+                    src="/icons/view_agenda_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
                     alt="View Products"
                   />
                   <span>View Products</span>
@@ -125,6 +125,13 @@ const Navbar = () => {
       {/* Lower header: category navigation */}
       <div className="lower-header">
         <nav>
+          <div className="header-navs">
+            <img
+              src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvinFGkVU-Primary-Menu.png"
+              alt="All Categories"
+            />
+            <Link to="/all-products">ALL PRODUCTS</Link>
+          </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/jJc56F0NF-menu_Mobiles.png"
@@ -194,13 +201,6 @@ const Navbar = () => {
               alt="Smart Watches"
             />
             <a href="#">SMART WATCHES</a>
-          </div>
-          <div className="header-navs">
-            <img
-              src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvinFGkVU-Primary-Menu.png"
-              alt="All Categories"
-            />
-            <a href="#">ALL CATEGORIES</a>
           </div>
         </nav>
         <div className="filter">

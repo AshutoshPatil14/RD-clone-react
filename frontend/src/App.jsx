@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
+import SingleProductPage from "./pages/SingleProductPage";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MobileSection from "./pages/MobileSection";
 import MobileProducts from "./pages/MobileProducts";
-import SingleMobileProduct from "./pages/SingleMobileProduct";
+import EditProductPage from "./pages/EditProductPage";
+
 import MyAccount from "./pages/MyAccount";
 import MyOrders from "./pages/MyOrders";
 import MyAddresses from "./pages/MyAddresses";
@@ -23,6 +24,8 @@ import api from "./api/axiosConfig";
 import { loginSuccess } from "./features/authSlice";
 import { useEffect } from "react";
 import AddProduct from "./pages/AddProduct";
+import AllProducts from "./pages/AllProducts";
+import ProductsAddedBySeller from "./pages/ProductsAddedBySeller";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,11 +34,11 @@ function App() {
   async function getUserData() {
     try {
       const response = await api.get("/auth/get-current-user");
-      console.log("user data", response.data);
+      // console.log("user data", response.data);
 
       if (response.status === 200) {
         dispatch(loginSuccess(response.data.user));
-        console.log("User object after loginSuccess:", response.data.user); // Added this line
+        // console.log("User object after loginSuccess:", response.data.user); // Added this line
       }
     } catch (error) {
       console.log("error", error);
@@ -53,14 +56,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/product/:id" element={<SingleProductPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* Mobiles */}
         <Route path="/mobiles" element={<MobileSection />} />
         <Route path="/mobiles/all" element={<MobileProducts />} />
-        <Route path="/mobiles/:slug" element={<SingleMobileProduct />} />
+
         {/* Account */}
         <Route path="/account" element={<MyAccount />} />
         <Route path="/account/orders" element={<MyOrders />} />
@@ -73,7 +76,9 @@ function App() {
         <Route path="/wishlist" element={<MyWishlist />} />
         {/* Seller */}
         <Route path="/add-product" element={<AddProduct />} />
-        {/* <Route path="/view-products" element={<ViewProducts />} /> */}
+        <Route path="/view-products" element={<ProductsAddedBySeller />} />
+        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/edit-product/:id" element={<EditProductPage />} />
       </Routes>
       <Footer />
       <Toaster

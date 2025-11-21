@@ -17,7 +17,7 @@ export const authSlice = createSlice({
       state.error = null;
     },
     loginSuccess: (state, action) => {
-      console.log(action.payload, "action.payload");
+      // console.log(action.payload, "action.payload");
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload;
@@ -37,7 +37,7 @@ export const authSlice = createSlice({
       state.error = null;
     },
     registerSuccess: (state, action) => {
-      console.log(action.payload, "action.payload");
+      // console.log(action.payload, "action.payload");
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload;
