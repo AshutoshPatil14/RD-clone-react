@@ -21,29 +21,24 @@ export const addProduct = async (req, res) => {
   res.status(201).json({ message: "Product added successfully", success: true });
 };
 
-
 export const getSellerProducts = async (req, res) => {
-  
   try {
-    const sellerId  = req.user._id;
+    const sellerId = req.user._id;
     if (!sellerId) {
       return res.status(400).json({ message: "Please provide sellerId", success: false });
     }
-  
-    const products = await Product.find({ sellerId });
-  
+
+    const products = await Product.find({ sellerId, isDeleted: false });
+
     if (!products || products.length === 0) {
       return res.status(404).json({ message: "No products found for this seller", success: false });
     }
-  
+
     res.status(200).json({ products, success: true });
   } catch (err) {
     res.status(500).json({ message: "Internal server error", success: false });
   }
-
 };
-
-
 
 export const editProduct = async (req, res) => {
   // console.log(req)
@@ -62,12 +57,10 @@ export const editProduct = async (req, res) => {
     console.log("  Product found:", product ? product._id : "None");
 
     if (!product) {
-      return res
-        .status(404)
-        .json({
-          message: "Product not found or you are not authorized to edit this product",
-          success: false,
-        });
+      return res.status(404).json({
+        message: "Product not found or you are not authorized to edit this product",
+        success: false,
+      });
     }
 
     product.name = name || product.name;
@@ -89,21 +82,20 @@ export const editProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   const { productId } = req.params;
   const sellerId = req.body.sellerId;
+  // console.log(productId, "productId", sellerId, "sellerId");
 
   try {
-    const product = await Product.findOneAndUpdate(
-      { _id: productId, sellerId },
-      { isDeleted: true },
-      { new: true }
-    );
+    const product = await Product.findOneAndUpdate({ _id: productId, sellerId });
+    // console.log(product, "product");
+
+    product.isDeleted = true;
+    await product.save();
 
     if (!product) {
-      return res
-        .status(404)
-        .json({
-          message: "Product not found or you are not authorized to delete this product",
-          success: false,
-        });
+      return res.status(404).json({
+        message: "Product not found or you are not authorized to delete this product",
+        success: false,
+      });
     }
 
     res.status(200).json({ message: "Product deleted successfully", success: true });

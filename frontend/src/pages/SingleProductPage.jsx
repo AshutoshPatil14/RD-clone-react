@@ -50,7 +50,7 @@ const SingleProductPage = () => {
         <div className="product-info">
           <h2>{product.name}</h2>
           <p><strong>Color:</strong> {product.color}</p>
-          <p className="product-price">₹{product.price}</p>
+          <p className="product-price">₹{new Intl.NumberFormat('en-IN').format(product.price)}</p>
           <p><strong>Description:</strong> {product.description}</p>
           {/* Add more product details here */}
         </div>

@@ -94,7 +94,7 @@ const AllProducts = () => {
               <img src={product.imgUrl || '/images/placeholder.png'} alt={product.name} />
               <h3>{product.name}</h3>
               <p>Color: {product.color}</p>
-              <span>₹{product.price}</span>
+              <span>₹{new Intl.NumberFormat('en-IN').format(product.price)}</span>
             </div>
           ))}
         </div>

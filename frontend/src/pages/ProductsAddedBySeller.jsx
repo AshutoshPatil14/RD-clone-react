@@ -34,18 +34,22 @@ const ProductsAddedBySeller = () => {
   const handleDelete = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await api.put(`/seller/delete-product/${productId}`, { sellerId: user.userId });
-        toast.success("Product deleted successfully!");
-        setProducts(products.filter((product) => product._id !== productId));
+        console.log(productId, "productId", user.userId, "userId");
+        const deletePromise = api.put(`/seller/delete-product/${productId}`, { sellerId: user.userId });
+        toast.promise(deletePromise, {
+          loading: "Deleting product...",
+          success: "Product deleted successfully!",
+          error: "Error deleting product. Please try again.",
+        }).then(() => {
+          setProducts(products.filter((product) => product._id !== productId));
+          navigate("/view-products");
+        });
+
       } catch (err) {
         console.error("Error deleting product:", err);
         toast.error("Error deleting product. Please try again.");
       }
     }
-  };
-
-  const handleEdit = (productId) => {
-    navigate(`/edit-product/${productId}`);
   };
 
   if (loading) {
@@ -66,10 +70,27 @@ const ProductsAddedBySeller = () => {
               <img src={product.imgUrl || "/images/placeholder.png"} alt={product.name} />
               <h3>{product.name}</h3>
               <p>Color: {product.color}</p>
-              <span>₹{product.price}</span>
+              <p>Quantity: {product.stock}</p>
+              <span>₹{new Intl.NumberFormat('en-IN').format(product.price)}</span>
               <div className="product-actions">
-                <button onClick={() => handleEdit(product._id)} className="edit-button">Edit</button>
-                <button onClick={() => handleDelete(product._id)} className="delete-button">Delete</button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`/edit-product/${product._id}`);
+                  }}
+                  className="edit-button"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDelete(product._id);
+                  }}
+                  className="delete-button"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))

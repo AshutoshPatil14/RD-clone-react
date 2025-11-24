@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../api/axiosConfig";
-import { toast } from "react-hot-toast";
-import "../styles/add-product.css"; // Reusing add-product styles for now
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import api from "../api/axiosConfig";
+import '../styles/edit-product-page.css';
+
 
 const EditProductPage = () => {
-  const { id } = useParams();
-  const user = useSelector((state) => state.user);
+  let productId = useParams();
+  productId = productId.id
+//   console.log(productId)
   const navigate = useNavigate();
-  const [product, setProduct] = useState({
+  const user = useSelector((state) => state.auth.user);
+  const userId = user?.userId;
+//   console.log(productId, "productId from editpage");
+
+  const [productData, setProductData] = useState({
     name: "",
     color: "",
     price: "",
@@ -21,139 +27,160 @@ const EditProductPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!userId) {
+      toast.error("Please log in as a seller to edit products.");
+      navigate("/login");
+      return;
+    }
+
     const fetchProduct = async () => {
       try {
-        const response = await api.get(`/products/${id}`);
-        if (response.status === 200) {
-          setProduct(response.data.product);
+        const response = await api.get(`/products/${productId}`);
+        const productToEdit = response.data.product;
+
+        if (productToEdit) {
+          setProductData({
+            name: productToEdit.name,
+            color: productToEdit.color,
+            price: productToEdit.price,
+            category: productToEdit.category,
+            stock: productToEdit.stock,
+            imgUrl: productToEdit.imgUrl,
+          });
+        } else {
+          setError("Product not found or you are not authorized to edit it.");
+          toast.error("Product not found or unauthorized.");
         }
-      } catch (error) {
-        setError(error);
-        toast.error(error.response?.data?.message || "Failed to fetch product details for editing");
+      } catch (err) {
+        console.error("Error fetching product details:", err);
+        setError("Error fetching product details. Please try again later.");
+        toast.error("Error fetching product details.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [id]);
+  }, [productId, userId, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
+    setProductData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (productData.price <= 0) {
+      toast.error("Price must be a positive number.");
+      return;
+    }
+
+    if (productData.stock < 0) {
+      toast.error("Stock cannot be negative.");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const response = await api.put(`/seller/edit-product/${id}`, { ...product, sellerId: user.userId });
-      // const response = await api.put(`/seller/update-product/${id}`, product);
-      if (response.status === 200) {
-        toast.success("Product updated successfully!");
-        navigate("/view-products"); // Navigate back to seller's products page
-      }
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to update product");
+    //   console.log(productData, "productData");
+    //   console.log(userId, "userId");
+      await api.put(`/seller/edit-product/${productId}`, { ...productData, sellerId: userId });
+      toast.success("Product updated successfully!");
+      navigate("/view-seller-products");
+    } catch (err) {
+      console.error("Error updating product:", err);
+      setError("Error updating product. Please try again.");
+      toast.error("Error updating product.");
+    } finally {
+      setLoading(false);
+      navigate('/view-products')
     }
   };
 
   if (loading) {
-    return <div className="loading-indicator">Loading product details...</div>;
+    return <div className="loading-message">Loading product details...</div>;
   }
 
   if (error) {
-    return <div className="error-message">Error: {error.message}</div>;
+    return <div className="error-message">{error}</div>;
   }
 
   return (
-    <div className="add-product-container">
+    <div className="edit-product-container">
       <h2>Edit Product</h2>
-      <form onSubmit={handleSubmit} className="add-product-form">
+      <form onSubmit={handleSubmit} className="edit-product-form">
         <div className="form-group">
-          <label htmlFor="name">Product Name:</label>
+          <label htmlFor="name">Product Name</label>
           <input
             type="text"
             id="name"
             name="name"
-            value={product.name}
+            value={productData.name}
             onChange={handleChange}
             required
           />
         </div>
-
         <div className="form-group">
-          <label htmlFor="color">Color:</label>
-          <select name="color" id="color" value={product.color} onChange={handleChange} required>
-            <option value="">Select Color</option>
-            <option value="red">Red</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-            <option value="yellow">Yellow</option>
-            <option value="orange">Orange</option>
-            <option value="purple">Purple</option>
-            <option value="black">Black</option>
-            <option value="white">White</option>
-          </select>
+          <label htmlFor="color">Color</label>
+          <input
+            type="text"
+            id="color"
+            name="color"
+            value={productData.color}
+            onChange={handleChange}
+            required
+          />
         </div>
-
         <div className="form-group">
-          <label htmlFor="price">Price:</label>
+          <label htmlFor="price">Price</label>
           <input
             type="number"
             id="price"
             name="price"
-            value={product.price}
+            value={new Intl.NumberFormat('en-IN').format(productData.price)}
             onChange={handleChange}
             required
           />
         </div>
-
         <div className="form-group">
-          <label htmlFor="category">Category:</label>
-          <select name="category" id="category" value={product.category} onChange={handleChange} required>
-            <option value="">Select Category</option>
-            <option value="laptop">Laptop</option>
-            <option value="mobile">Mobile</option>
-            <option value="tablet">Tablet</option>
-            <option value="tv">TV</option>
-            <option value="headphone">Headphone</option>
-            <option value="speaker">Speaker</option>
-            <option value="camera">Camera</option>
-            <option value="smart-watch">Smart Watch</option>
-            <option value="washing-machine">Washing Machine</option>
-            <option value="refrigerator">Refrigerator</option>
-          </select>
+          <label htmlFor="category">Category</label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            value={productData.category}
+            onChange={handleChange}
+            required
+          />
         </div>
-
         <div className="form-group">
-          <label htmlFor="stock">Stock:</label>
+          <label htmlFor="stock">Stock</label>
           <input
             type="number"
             id="stock"
             name="stock"
-            value={product.stock}
+            value={productData.stock}
             onChange={handleChange}
             required
           />
         </div>
-
         <div className="form-group">
-          <label htmlFor="imgUrl">Image URL:</label>
+          <label htmlFor="imgUrl">Image URL</label>
           <input
             type="text"
             id="imgUrl"
             name="imgUrl"
-            value={product.imgUrl}
+            value={productData.imgUrl}
             onChange={handleChange}
             required
           />
         </div>
-
-        <button type="submit" className="submit-button">
-          Update Product
+        <button type="submit" disabled={loading}>
+          {loading ? "Updating..." : "Update Product"}
         </button>
       </form>
     </div>
