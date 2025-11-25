@@ -141,7 +141,7 @@ const EditProductPage = () => {
             type="number"
             id="price"
             name="price"
-            value={new Intl.NumberFormat('en-IN').format(productData.price)}
+            value={productData.price}
             onChange={handleChange}
             required
           />
