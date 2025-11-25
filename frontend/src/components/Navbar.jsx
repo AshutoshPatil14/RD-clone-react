@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
@@ -11,6 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleLogout = async () => {
     try {
@@ -22,6 +23,16 @@ const Navbar = () => {
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Logout failed");
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${searchTerm.trim()}`);
     }
   };
 
@@ -43,8 +54,23 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="search-bar">
-            <img src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="Search" />
-            <input type="text" placeholder="Search Products & Brands" />
+            <img
+              src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Search"
+              onClick={handleSearchSubmit}
+              style={{ cursor: "pointer" }}
+            />
+            <input
+              type="text"
+              placeholder="Search Products & Brands"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchSubmit();
+                }
+              }}
+            />
           </div>
           <div className="profile-items">
             {!user && (

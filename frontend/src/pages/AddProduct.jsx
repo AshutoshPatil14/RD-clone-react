@@ -37,8 +37,9 @@ function AddProduct() {
     // console.log(product, "from frontend, above api");
     try {
       const response = await api.post("/seller/add-product", product);
-      console.log("Product Added:", response.data);
-      alert("Product added successfully!");
+      // console.log("Product Added:", response.data);
+      toast.success(response.data.message);
+
       setProduct({
         name: "",
         color: "",
@@ -49,7 +50,7 @@ function AddProduct() {
         sellerId: userId,
       });
     } catch (error) {
-      toast.error("Error adding product:", error);
+      toast.error(error.response?.data?.message || "Error adding product. Please try again.");
       // alert("Error adding product. Please try again.");
     }
   };

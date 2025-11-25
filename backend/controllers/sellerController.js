@@ -1,14 +1,15 @@
 import Product from "../models/productModel.js";
 
 export const addProduct = async (req, res) => {
-  const { name, price, category, imgUrl, stock, sellerId } = req.body || {};
+  const { name, color, price, category, imgUrl, stock, sellerId } = req.body || {};
   console.log(req.body);
-  if (!name || !price || !category || !imgUrl || !stock) {
+  if (!name || !color || !price || !category || !imgUrl || !stock || !sellerId) {
     return res.status(400).json({ message: "Please fill the missing fields", success: false });
   }
 
   const product = new Product({
     name,
+    color,
     price,
     category,
     imgUrl,

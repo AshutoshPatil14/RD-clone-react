@@ -75,7 +75,7 @@ const AllProducts = () => {
           <div className="filter-group">
             <h3>Color</h3>
             {["All", "red", "green", "blue", "yellow", "orange", "purple", "black", "white"].map((color) => (
-              <label key={color}>
+              <label key={color} className="color-filter-label">
                 <input
                   type="radio"
                   name="color"
@@ -83,6 +83,7 @@ const AllProducts = () => {
                   checked={selectedColor === color}
                   onChange={handleColorChange}
                 />
+                {color !== "All" && <span className="color-icon" style={{ backgroundColor: color }}></span>}
                 {color}
               </label>
             ))}

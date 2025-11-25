@@ -22,3 +22,25 @@ export const getSingleProduct = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const searchProducts = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+
+    const products = await Product.find({
+      isDeleted: false,
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to search products", error: error.message });
+  }
+};

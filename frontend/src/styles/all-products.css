@@ -68,6 +68,21 @@
   cursor: pointer;
 }
 
+.color-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between radio button, color icon, and text */
+}
+
+.color-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #ccc; /* Optional: for visibility of white colors */
+  vertical-align: middle;
+}
+
 .filter-group input[type="radio"] {
   margin-right: 10px;
   accent-color: #e32729; /* Highlight color for radio buttons */

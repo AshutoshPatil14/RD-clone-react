@@ -12,7 +12,6 @@ import MyAccount from "./pages/MyAccount";
 import MyOrders from "./pages/MyOrders";
 import MyAddresses from "./pages/MyAddresses";
 import MyWishlist from "./pages/MyWishlist";
-import AccountPage from "./pages/AccountPage";
 import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
@@ -22,34 +21,34 @@ import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import api from "./api/axiosConfig";
 import { loginSuccess } from "./features/authSlice";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import AddProduct from "./pages/AddProduct";
 import AllProducts from "./pages/AllProducts";
 import ProductsAddedBySeller from "./pages/ProductsAddedBySeller";
+import SearchResultsPage from "./pages/SearchResultsPage";
+
 
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  async function getUserData() {
+  const getUserData = useCallback(async () => {
     try {
       const response = await api.get("/auth/get-current-user");
-      // console.log("user data", response.data);
 
       if (response.status === 200) {
         dispatch(loginSuccess(response.data.user));
-        // console.log("User object after loginSuccess:", response.data.user); // Added this line
       }
     } catch (error) {
       console.log("error", error);
     }
-  }
+  }, [dispatch]);
 
   useEffect(() => {
     if (!user) {
       getUserData();
     }
-  }, [user]);
+  }, [user, getUserData]);
 
   return (
     <Router>
@@ -79,6 +78,9 @@ function App() {
         <Route path="/view-products" element={<ProductsAddedBySeller />} />
         <Route path="/all-products" element={<AllProducts />} />
         <Route path="/edit-product/:id" element={<EditProductPage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
+
+
       </Routes>
       <Footer />
       <Toaster
