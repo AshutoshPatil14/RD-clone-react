@@ -3,6 +3,7 @@ import api from "../api/axiosConfig";
 import { toast } from "react-hot-toast";
 import "../styles/all-products.css"; // Import the new CSS file
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const AllProducts = () => {
@@ -11,6 +12,8 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedColor, setSelectedColor] = useState("All");
+  const user = useSelector((state) => state.auth.user);
+  const userId = user?.userId;
 
 
   useEffect(() => {
@@ -50,6 +53,38 @@ const AllProducts = () => {
     return categoryMatch && colorMatch;
   });
 
+
+  const handleAddToCart = async (event, product) => {
+    event.stopPropagation(); // Stop event from bubbling up to the product card
+    try{
+      // console.log(product, userId)
+      const response = await api.post("/cart/add-to-cart", {productId: product._id, userId})
+      toast.promise(response, {
+        loading: "Adding to cart...",
+        success: "Added to cart successfully",
+        error: "Failed to add to cart",
+      });
+    }catch(error){
+      toast.error(error.response?.data?.message || "Failed to add to cart");
+    }
+  };
+
+  const handleBuyNow = async (event, product) => {
+    event.stopPropagation(); // Stop event from bubbling up to the product card
+    try{
+      const response = await api.post("/cart/buy-now", {productId: product._id, userId})
+      toast.promise(response, {
+        loading: "Buying now...",
+        success: "Redirecting to cart page",
+        error: "Failed to buy now",
+      });
+    }catch(error){
+      toast.error(error.response?.data?.message || "An unknown error occurred");
+    }
+  }
+
+
+
   return (
     <div className="all-products-page">
       <h1>All Products</h1>
@@ -70,6 +105,7 @@ const AllProducts = () => {
               <option value="smart-watch">Smart Watch</option>
               <option value="washing-machine">Washing Machine</option>
               <option value="refrigerator">Refrigerator</option>
+              <option value="air-conditioner">Air Conditioner</option>
             </select>
           </div>
           <div className="filter-group">
@@ -92,10 +128,16 @@ const AllProducts = () => {
         <div className="products-container">
           {filteredProducts.map((product) => (
             <div className="product-card" key={product._id} onClick={() => router(`/product/${product._id}`)} >
-              <img src={product.imgUrl || '/images/placeholder.png'} alt={product.name} />
-              <h3>{product.name}</h3>
-              <p>Color: {product.color}</p>
-              <span>₹{new Intl.NumberFormat('en-IN').format(product.price)}</span>
+              <div className="product-details-container">
+                <img src={product.imgUrl || '/images/placeholder.png'} alt={product.name} />
+                <h3>{product.name}</h3>
+                <p>Color: {product.color}</p>
+                <span>₹{new Intl.NumberFormat('en-IN').format(product.price)}</span>
+              </div>
+              <div className="product-action-btn-container">
+                <button className="product-action-btn" onClick={(event) => handleAddToCart(event, product)}>Add to Cart</button>
+                <button className="product-action-btn" onClick={(event) => handleBuyNow(event, product)}>Buy Now</button>
+              </div>
             </div>
           ))}
         </div>

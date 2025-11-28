@@ -40,7 +40,6 @@
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
   outline: 2px solid #e32729;
 }
 
