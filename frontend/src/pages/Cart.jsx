@@ -50,6 +50,52 @@ const Cart = () => {
     }
   };
 
+  const handleMoveToWishlist = async (productId) => {
+    try {
+      const response = await api.post(`/wishlist/add-to-wishlist`, { userId, productId });
+      if (response.status === 200) {
+        toast.success("Product moved to wishlist");
+      }
+      setCartItems(cartItems.filter((item) => item.product._id !== productId));
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to move to wishlist");
+    }
+  };
+  const handleRemoveFromCart = async (productId) => {
+    try {
+      const response = await api.post(`/cart/remove-from-cart`, { userId, productId });
+      if (response.status === 200) {
+        toast.success("Product removed from cart");
+        setCartItems(cartItems.filter((item) => item.product._id !== productId));
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to remove from cart");
+    }
+  };
+
+  const handleQuantityChange = async (productId, newQuantity) => {
+    if (newQuantity < 1) {
+      toast.error("Quantity must be at least 1");
+      return;
+    }
+
+    try {
+      const response = await api.post(`/cart/update-quantity`, { userId, productId, newQuantity });
+      if (response.status === 200) {
+        toast.success("Quantity updated successfully");
+      } else {
+        toast.error(response?.data?.message || "Failed to update quantity");
+      }
+      setCartItems(
+        cartItems.map((item) =>
+          item.product._id === productId ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update quantity");
+    }
+  };
+
   if (loading) {
     return <div className="loading-indicator">Loading cart...</div>;
   }
@@ -90,19 +136,29 @@ const Cart = () => {
                   <div className="card-upper-part">
                     <div className="item-img">
                       <img
-                        src={item.product.imgUrl || '/images/placeholder.png'}
+                        src={item.product.imgUrl || "/images/placeholder.png"}
                         alt={item.product.name}
                       />
                       <div className="item-quantity">
-                        <button className="decrease-btn">-</button>
+                        <button
+                          className="decrease-btn"
+                          onClick={() => handleQuantityChange(item.product._id, item.quantity - 1)}
+                        >
+                          -
+                        </button>
                         <span className="quantity">{item.quantity}</span>
-                        <button className="increase-btn">+</button>
+                        <button
+                          className="increase-btn"
+                          onClick={() => handleQuantityChange(item.product._id, item.quantity + 1)}
+                        >
+                          +
+                        </button>
                       </div>
                     </div>
                     <div className="item-details">
                       <div className="item-description">
                         <h3>{item.product.name}</h3>
-                        <h2>₹{new Intl.NumberFormat('en-IN').format(item.product.price)}</h2>
+                        <h2>₹{new Intl.NumberFormat("en-IN").format(item.product.price)}</h2>
                         <p>
                           MRP <span>(Inclusive of all taxes)</span>
                         </p>
@@ -117,8 +173,18 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="card-lower-part">
-                    <button className="save-btn">Move to Wishlist</button>
-                    <button className="remove-btn">Remove</button>
+                    <button
+                      className="save-btn"
+                      onClick={() => handleMoveToWishlist(item.product._id)}
+                    >
+                      Move to Wishlist
+                    </button>
+                    <button
+                      className="remove-btn"
+                      onClick={() => handleRemoveFromCart(item.product._id)}
+                    >
+                      Remove
+                    </button>
                   </div>
                 </div>
               ))
@@ -126,7 +192,7 @@ const Cart = () => {
           </div>
           <div className="right-body">
             <div className="apply-coupon">
-              <button>
+              <button onClick={() => toast("Functionality not implemented yet")}>
                 <div className="apply-coupon-btn">
                   <img
                     src="/icons/local_activity_24dp_3535F3_FILL1_wght400_GRAD0_opsz24.svg"
@@ -144,11 +210,11 @@ const Cart = () => {
               <h4 className="payment-description-box2">Payment Summary</h4>
               <div className="payment-description-box">
                 <p>Price ({totalItems} items)</p>
-                <p>₹{new Intl.NumberFormat('en-IN').format(totalPrice)}</p>
+                <p>₹{new Intl.NumberFormat("en-IN").format(totalPrice)}</p>
               </div>
               <div className="payment-description-box">
                 <span>Promotion</span>
-                <p>-₹{new Intl.NumberFormat('en-IN').format(promotion)}</p>
+                <p>-₹{new Intl.NumberFormat("en-IN").format(promotion)}</p>
               </div>
               <div className="payment-description-box">
                 <span>Delivery Charges</span>
@@ -156,12 +222,12 @@ const Cart = () => {
               </div>
               <div className="payment-description-box2">
                 <p>Total</p>
-                <p>₹{new Intl.NumberFormat('en-IN').format(totalAmount)}</p>
+                <p>₹{new Intl.NumberFormat("en-IN").format(totalAmount)}</p>
               </div>
               <div className="payment-description-box3">
                 <div className="payment-description-box4">
                   <p>{totalItems} items</p>
-                  <span>₹{new Intl.NumberFormat('en-IN').format(totalAmount)}</span>
+                  <span>₹{new Intl.NumberFormat("en-IN").format(totalAmount)}</span>
                 </div>
                 <div>
                   <Link to="/payment">

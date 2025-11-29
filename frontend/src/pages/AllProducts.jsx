@@ -5,7 +5,6 @@ import "../styles/all-products.css"; // Import the new CSS file
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 const AllProducts = () => {
   const router = useNavigate();
   const [products, setProducts] = useState([]);
@@ -15,15 +14,12 @@ const AllProducts = () => {
   const user = useSelector((state) => state.auth.user);
   const userId = user?.userId;
 
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await api.get("/products/all-products");
         if (response.status === 200) {
           setProducts(response.data);
-
-
         }
       } catch (error) {
         toast.error(error.response?.data?.message || "Failed to fetch products");
@@ -53,37 +49,26 @@ const AllProducts = () => {
     return categoryMatch && colorMatch;
   });
 
-
   const handleAddToCart = async (event, product) => {
     event.stopPropagation(); // Stop event from bubbling up to the product card
-    try{
+    try {
       // console.log(product, userId)
-      const response = await api.post("/cart/add-to-cart", {productId: product._id, userId})
-      toast.promise(response, {
-        loading: "Adding to cart...",
-        success: "Added to cart successfully",
-        error: "Failed to add to cart",
-      });
-    }catch(error){
+      const response = await api.post("/cart/add-to-cart", { productId: product._id, userId });
+      toast.success(response.data.message);
+    } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add to cart");
     }
   };
 
   const handleBuyNow = async (event, product) => {
     event.stopPropagation(); // Stop event from bubbling up to the product card
-    try{
-      const response = await api.post("/cart/buy-now", {productId: product._id, userId})
-      toast.promise(response, {
-        loading: "Buying now...",
-        success: "Redirecting to cart page",
-        error: "Failed to buy now",
-      });
-    }catch(error){
+    try {
+      const response = await api.post("/cart/buy-now", { productId: product._id, userId });
+      toast.success(response.data.message);
+    } catch (error) {
       toast.error(error.response?.data?.message || "An unknown error occurred");
     }
-  }
-
-
+  };
 
   return (
     <div className="all-products-page">
@@ -110,33 +95,51 @@ const AllProducts = () => {
           </div>
           <div className="filter-group">
             <h3>Color</h3>
-            {["All", "red", "green", "blue", "yellow", "orange", "purple", "black", "white"].map((color) => (
-              <label key={color} className="color-filter-label">
-                <input
-                  type="radio"
-                  name="color"
-                  value={color}
-                  checked={selectedColor === color}
-                  onChange={handleColorChange}
-                />
-                {color !== "All" && <span className="color-icon" style={{ backgroundColor: color }}></span>}
-                {color}
-              </label>
-            ))}
+            {["All", "red", "green", "blue", "yellow", "orange", "purple", "black", "white"].map(
+              (color) => (
+                <label key={color} className="color-filter-label">
+                  <input
+                    type="radio"
+                    name="color"
+                    value={color}
+                    checked={selectedColor === color}
+                    onChange={handleColorChange}
+                  />
+                  {color !== "All" && (
+                    <span className="color-icon" style={{ backgroundColor: color }}></span>
+                  )}
+                  {color}
+                </label>
+              )
+            )}
           </div>
         </div>
         <div className="products-container">
           {filteredProducts.map((product) => (
-            <div className="product-card" key={product._id} onClick={() => router(`/product/${product._id}`)} >
+            <div
+              className="product-card"
+              key={product._id}
+              onClick={() => router(`/product/${product._id}`)}
+            >
               <div className="product-details-container">
-                <img src={product.imgUrl || '/images/placeholder.png'} alt={product.name} />
+                <img src={product.imgUrl || "/images/placeholder.png"} alt={product.name} />
                 <h3>{product.name}</h3>
                 <p>Color: {product.color}</p>
-                <span>₹{new Intl.NumberFormat('en-IN').format(product.price)}</span>
+                <span>₹{new Intl.NumberFormat("en-IN").format(product.price)}</span>
               </div>
               <div className="product-action-btn-container">
-                <button className="product-action-btn" onClick={(event) => handleAddToCart(event, product)}>Add to Cart</button>
-                <button className="product-action-btn" onClick={(event) => handleBuyNow(event, product)}>Buy Now</button>
+                <button
+                  className="product-action-btn"
+                  onClick={(event) => handleAddToCart(event, product)}
+                >
+                  Add to Cart
+                </button>
+                <button
+                  className="product-action-btn"
+                  onClick={(event) => handleBuyNow(event, product)}
+                >
+                  Buy Now
+                </button>
               </div>
             </div>
           ))}
