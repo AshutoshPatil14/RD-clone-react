@@ -3,6 +3,9 @@
 /* Shared Header Styles */
 header {
   background-color: #e32729;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .upper-header {
@@ -76,7 +79,6 @@ header {
   gap: 20px;
   max-width: var(--site-max);
   margin: 0 auto;
-  padding: 0 32px;
 }
 .lower-header nav::-webkit-scrollbar { display: none; }
 .lower-header nav a { text-decoration: none; color: black; font-size: 12px; font-weight: 600; }

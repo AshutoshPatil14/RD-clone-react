@@ -144,6 +144,31 @@
   margin-top: auto; /* Pushes price to the bottom */
 }
 
+.product-action-btn-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
+.product-action-btn {
+  background-color: #e32729;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  flex: 1;
+}
+
+.product-action-btn:hover {
+  background-color: #c21e1e;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .all-products-page {

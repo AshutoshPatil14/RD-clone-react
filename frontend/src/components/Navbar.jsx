@@ -40,12 +40,6 @@ const Navbar = () => {
     <header>
       {/* Upper header: small text links */}
       <div className="upper-header">
-        <div className="text-navs">
-          <Link to="/account/orders">Orders</Link>
-          <a href="#">Contact us</a>
-          <a href="#">Resource Center</a>
-          <a href="#">Find a store</a>
-        </div>
         {/* Search/logo/profile strip */}
         <div className="search-bar-section">
           <div className="logo">
