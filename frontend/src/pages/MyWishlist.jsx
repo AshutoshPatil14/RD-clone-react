@@ -23,6 +23,7 @@ const MyWishlist = () => {
       try {
         setLoading(true);
         const response = await api.get(`/wishlist/get-wishlist-products/${userId}`);
+        console.log(response.data);
         if (response.status === 200) {
           setWishlistItems(response.data);
         }
@@ -56,9 +57,28 @@ const MyWishlist = () => {
     }
   };
 
+  const handleMoveToCart = async (event, productId) => {
+    event.stopPropagation();
+    try {
+      const response = await api.post("/cart/add-to-cart", { productId, userId });
+      toast.success(response.data.message);
+      setWishlistItems(prevItems => prevItems.filter(item => item.product._id !== productId));
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to move to cart");
+    }
+  };
+
+
+
+
   return (
     <div className="wishlist-container">
-      <h2>My Wishlist</h2>
+      <div className="wishlist-heading">
+        <div className="wishlist-title">
+          <h2>My Wishlist</h2>
+          <p>({wishlistItems.length} items)</p>
+        </div>
+      </div>
       {wishlistItems.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
@@ -75,7 +95,7 @@ const MyWishlist = () => {
                 <p className="product-price">₹{new Intl.NumberFormat('en-IN').format(item.product.price)}</p>
               </Link>
               <div className="product-actions">
-                <button className="add-to-cart-btn">Add to Cart</button>
+                <button className="move-to-cart-btn" onClick={() => handleMoveToCart(event, item.product._id)}>Move to Cart</button>
                 <button
                   className="remove-from-wishlist-btn"
                   onClick={(event) => handleRemoveFromWishlist(event, item.product._id)}

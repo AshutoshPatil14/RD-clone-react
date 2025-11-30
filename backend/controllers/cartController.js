@@ -1,4 +1,5 @@
 import Cart from "../models/cartModel.js";
+import Wishlist from "../models/wishlistModel.js";
 
 export const GetCartProducts = async (req, res) => {
   const { userId } = req.params || {};
@@ -100,42 +101,55 @@ export const BuyNow = async (req, res) => {
 export const AddProductToCart = async (req, res) => {
   const { userId, productId } = req.body || {};
 
-
   // check for empty fields
   if (!userId || !productId) {
     return res.status(400).json({ message: "Invalid Data Input", success: false });
   }
 
-  // check for existing cart
-  const existingCart = await Cart.findOne({ userId });
-  // console.log(existingCart);
-  if (!existingCart) {
-    // create new cart
-    const newCart = new Cart({ userId, products: [{ productId, quantity: 1 }] });
-    await newCart.save();
-    return res
-      .status(201)
-      .json({ message: "Cart created and product added", success: true, cart: newCart });
-  } else {
-    // check for existing product in cart
-    const existingProduct = existingCart.products.find(
-      (item) => item.productId.toString() === productId
-    );
-    if (existingProduct) {
-      // update quantity
-      existingProduct.quantity += 1;
-      await existingCart.save();
-      return res
-        .status(200)
-        .json({ message: "Product quantity updated", success: true, cart: existingCart });
-    } else {
-      // add new product
-      existingCart.products.push({ productId, quantity: 1 });
-      await existingCart.save();
-      return res
-        .status(200)
-        .json({ message: "Product added to cart", success: true, cart: existingCart });
+  try {
+    // Remove product from wishlist if it exists there
+    let wishlist = await Wishlist.findOne({ userId });
+    if (wishlist) {
+      wishlist.products = wishlist.products.filter(
+        (item) => item.productId.toString() !== productId
+      );
+      await wishlist.save();
     }
+
+    // check for existing cart
+    const existingCart = await Cart.findOne({ userId });
+    // console.log(existingCart);
+    if (!existingCart) {
+      // create new cart
+      const newCart = new Cart({ userId, products: [{ productId, quantity: 1 }] });
+      await newCart.save();
+      return res
+        .status(201)
+        .json({ message: "Cart created and product added", success: true, cart: newCart });
+    } else {
+      // check for existing product in cart
+      const existingProduct = existingCart.products.find(
+        (item) => item.productId.toString() === productId
+      );
+      if (existingProduct) {
+        // update quantity
+        existingProduct.quantity += 1;
+        await existingCart.save();
+        return res
+          .status(200)
+          .json({ message: "Product quantity updated", success: true, cart: existingCart });
+      } else {
+        // add new product
+        existingCart.products.push({ productId, quantity: 1 });
+        await existingCart.save();
+        return res
+          .status(200)
+          .json({ message: "Product added to cart", success: true, cart: existingCart });
+      }
+    }
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+    res.status(500).json({ message: "Failed to add product to cart", success: false });
   }
 };
 

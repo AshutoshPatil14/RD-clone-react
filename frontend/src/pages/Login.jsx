@@ -28,13 +28,22 @@ const Login = () => {
   const Submit = async (event) => {
     event.preventDefault();
 
-    console.log(userDetails)
+    // console.log(userDetails);
 
     // Form validation
     let newErrors = {};
-    if (!userDetails.role) newErrors.role = "Role is required";
-    if (!userDetails.email) newErrors.email = "Please enter your email";
-    if (!userDetails.password) newErrors.password = "Please enter your password";
+    if (!userDetails.role) {
+      newErrors.role = "Role is required";
+      toast("Please select a role");
+    }
+    if (!userDetails.email) {
+      newErrors.email = "Please enter your email";
+      toast("Please enter your email");
+    }
+    if (!userDetails.password) {
+      newErrors.password = "Please enter your password";
+      toast("Please enter your password");
+    }
 
     setErrors(newErrors);
 
@@ -43,11 +52,11 @@ const Login = () => {
       try {
         const response = await api.post("/auth/login", userDetails);
 
-        console.log(response.data.user, "response.data.user")
+        // console.log(response.data.user, "response.data.user")
         if (response.status === 200) {
           // Store user data in Redux
           dispatch(loginSuccess(response.data.user));
-          console.log("Redux auth state after login:", response.data.user);
+          // console.log("Redux auth state after login:", response.data.user);
 
           toast.success(
             `Hi ${response.data.user.name || userDetails.email}, \nYou are logged in successfully`
@@ -90,12 +99,28 @@ const Login = () => {
             <option value="seller">Seller</option>
             <option value="admin">Admin</option>
           </select>
-          <input type="email" placeholder="Email Address" name="email" required onChange={InputHandler} />
+          <input
+            type="email"
+            placeholder="Email Address"
+            name="email"
+            required
+            onChange={InputHandler}
+          />
           <div className="password-input">
-            <input type={showPassword} placeholder="Password" name="password" required onChange={InputHandler} />
-            <button onClick={ShowPassword}>Show</button>
+            <input
+              type={showPassword}
+              placeholder="Password"
+              name="password"
+              required
+              onChange={InputHandler}
+            />
+            <button type="button" onClick={ShowPassword}>
+              Show
+            </button>
           </div>
-          <button type="submit" onClick={Submit}>Login</button>
+          <button type="submit" onClick={Submit}>
+            Login
+          </button>
           <p className="login-link">
             Don't have an account? <Link to="/register">Register here</Link>
           </p>

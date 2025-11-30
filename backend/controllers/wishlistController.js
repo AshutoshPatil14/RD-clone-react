@@ -1,28 +1,28 @@
 import Wishlist from "../models/wishlistModel.js";
 import Cart from "../models/cartModel.js";
+import Product from "../models/productModel.js";
+import { cacheSignal } from "react";
 
 export const GetWishlistProducts = async (req, res) => {
-  const { userId } = req.params;
-
-  //   console.log(userId)
-  if (!userId) {
-    return res.status(400).json({ message: "User ID is required", success: false });
-  }
-
   try {
-    const existingWishlist = await Wishlist.findOne({ userId }).populate("products.productId");
-    console.log(existingWishlist.products.length);
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required", success: false });
+    }
+
+    const existingWishlist = await Wishlist.findOne({ userId }).populate("products.productId"); // <-- THIS FIXES EVERYTHING
 
     if (!existingWishlist || existingWishlist.products.length === 0) {
       return res.status(200).json([]);
     }
 
-    // const wishlistProducts = existingWishlist.products.map((item) => ({
-    //   product: item.productId,
-    //   addedAt: item.addedAt,
-    // }));
+    const wishlistProducts = existingWishlist.products.map((item) => ({
+      product: item.productId, // full product object is now available
+      addedAt: item.addedAt,
+    }));
 
-    // res.status(200).json(wishlistProducts);
+    res.status(200).json(wishlistProducts);
   } catch (error) {
     console.error("Error fetching wishlist products:", error);
     res.status(500).json({ message: "Failed to fetch wishlist products", success: false });

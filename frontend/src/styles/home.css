@@ -20,26 +20,13 @@ header {
 
 .upper-header {
   margin: 0 auto;
-  padding-bottom: 12px;
-}
-
-.text-navs {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 35px;
-}
-
-.text-navs a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 12px;
-  padding: 6px 0;
+  padding: 12px 32px;
 }
 
 .search-bar-section {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   /* padding-top: 12px; */
