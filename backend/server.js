@@ -11,7 +11,7 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = { origin: "http://localhost:5173", credentials: true };
+const corsOptions = { origin: ["http://localhost:5173", "https://rd-clone-react.vercel.app"], credentials: true };
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
