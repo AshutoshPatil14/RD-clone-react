@@ -11,7 +11,11 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = { origin: ["http://localhost:5173", "https://rd-clone-react.vercel.app"], credentials: true };
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://rd-clone-react.vercel.app"],
+  credentials: true,
+  secure: true,
+};
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -24,67 +28,69 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", mainRouter);
 
-app.get("/test", async (req, res) => {
-  // res.status(200).json({ message: "Test route" });
+// app.get("/test", async (req, res) => {
+//   // res.status(200).json({ message: "Test route" });
 
-  try {
-    // const products = await Product.find({ color: { $eq: "blue" } });
+//   try {
+//     // const products = await Product.find({ color: { $eq: "blue" } });
 
-    // const products = await Product.find({ color: { $ne: "blue" } });
+//     // const products = await Product.find({ color: { $ne: "blue" } });
 
-    // const products = await Product.find({ price: { $gt: 200000 } });
+//     // const products = await Product.find({ price: { $gt: 200000 } });
 
-    // const products = await Product.find({ price: { $lt: 1000 } });
+//     // const products = await Product.find({ price: { $lt: 1000 } });
 
-    const products = await Product.find({ price: { $gt: 1000, $lt: 100000 } });
+//     const products = await Product.find({ price: { $gt: 1000, $lt: 100000 } });
 
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(500).json({ message: err });
-  }
-});
+//     res.status(200).json(products);
+//   } catch (err) {
+//     res.status(500).json({ message: err });
+//   }
+// });
 
-app.get("/matching-grouping", async (req, res) => {
-  try {
-    const products = await Product.aggregate([
-      {
-        $match: {
-          color: "blue",
-          price: { $gt: 10000 },
-        },
-      },
-      {
-        $group: {
-          _id: "$category",
-          totalPrice: {
-            $sum: {
-              $multiply: ["$price", "$stock"],
-            },
-          },
-        },
-      },
-    ]);
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(500).json({ message: err });
-  }
-});
+// app.get("/matching-grouping", async (req, res) => {
+//   try {
+//     const products = await Product.aggregate([
+//       {
+//         $match: {
+//           color: "blue",
+//           price: { $gt: 10000 },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$category",
+//           totalPrice: {
+//             $sum: {
+//               $multiply: ["$price", "$stock"],
+//             },
+//           },
+//         },
+//       },
+//     ]);
+//     res.status(200).json(products);
+//   } catch (err) {
+//     res.status(500).json({ message: err });
+//   }
+// });
 
-app.get("/unwinding-project", async (req, res) => {
-  try {
-    const products = await Product.aggregate([{
-      $project:{
-        _id:0,
-        name:1,
-        stock:1,
-        price:1,
-      }
-    }])
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(500).json({ message: err });
-  }
-});
+// app.get("/unwinding-project", async (req, res) => {
+//   try {
+//     const products = await Product.aggregate([
+//       {
+//         $project: {
+//           _id: 0,
+//           name: 1,
+//           stock: 1,
+//           price: 1,
+//         },
+//       },
+//     ]);
+//     res.status(200).json(products);
+//   } catch (err) {
+//     res.status(500).json({ message: err });
+//   }
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
