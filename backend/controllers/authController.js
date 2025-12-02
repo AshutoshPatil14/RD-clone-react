@@ -35,6 +35,9 @@ export const Login = async (req, res) => {
   // set the token as a cookie
   res.cookie("token", token, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Required for cross-site cookies in production
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
   });
 
   return res.status(200).json({
@@ -105,6 +108,8 @@ export const Logout = (req, res) => {
     // Clear the auth token cookie
     res.clearCookie("token", {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     });
 
     return res.status(200).json({ message: "Logged out successfully", success: true });
