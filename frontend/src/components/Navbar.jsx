@@ -100,14 +100,14 @@ const Navbar = () => {
                 </Link>
               </div>
             )}
-            {user?.role === "user" && (
+            {user && (
               <div className="profile-item">
-                <Link to="/wishlist">
+                <Link to="/account">
                   <img
-                    src="/icons/favorite_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
-                    alt="Wishlist"
+                    src="/icons/person_24dp_E3E3E3_FILL1_wght400_GRAD0_opsz24.svg"
+                    alt="Account"
                   />
-                  <span>Wishlist</span>
+                  <span>Account</span>
                 </Link>
               </div>
             )}

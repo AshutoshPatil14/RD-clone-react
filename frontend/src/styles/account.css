@@ -1,0 +1,167 @@
+/* frontend/src/styles/account.css */
+
+.account-page-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-sidebar-wrapper {
+    flex: 0 0 250px; /* Fixed width for sidebar */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-right: 20px;
+    max-height:max-content;
+}
+
+.account-content-wrapper {
+    flex: 1; /* Takes remaining space */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+/* Account Sidebar Styles */
+.account-sidebar h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.account-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.account-sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.account-sidebar ul li button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+    border-radius: 5px;
+}
+
+.account-sidebar ul li button:hover,
+.account-sidebar ul li button.active {
+    background-color: #e32729;
+    color: #fff;
+}
+
+.account-sidebar ul li button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    filter: invert(0.5);
+}
+
+.account-sidebar ul li button.active img {
+    filter: invert(1);
+}
+
+.account-sidebar .user-info {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.account-sidebar .user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.account-sidebar .user-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* MyProfile Component Styles */
+.my-profile-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-details h3 {
+    font-size: 18px;
+    color: #e32729;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-details h3 button {
+    background-color: #e32729;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-details h3 button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    filter: invert(1);
+}
+
+.profile-item-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.profile-item-row label {
+    font-weight: bold;
+    width: 150px;
+    color: #555;
+}
+
+.profile-item-row span {
+    color: #333;
+}
+
+/* MyOrders, MyAddresses, MyWishlist Placeholder Styles */
+.placeholder-container {
+    text-align: center;
+    padding: 50px;
+    font-size: 18px;
+    color: #666;
+}

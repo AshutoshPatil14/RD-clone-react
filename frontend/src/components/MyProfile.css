@@ -1,0 +1,103 @@
+.my-profile-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.my-profile-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.profile-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.profile-details h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.profile-details h3 button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-details h3 button:hover {
+  background-color: #0056b3;
+}
+
+.profile-details h3 button img {
+  width: 18px;
+  height: 18px;
+  filter: invert(1); /* To make the SVG icon white */
+}
+
+.profile-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+  align-items: center;
+}
+
+.profile-item-row:last-child {
+  border-bottom: none;
+}
+
+.profile-item-row label {
+  font-weight: bold;
+  color: #666;
+  flex: 1;
+}
+
+.profile-item-row span,
+.profile-item-row input,
+.profile-item-row select {
+  flex: 2;
+  /* text-align: right; */
+  color: #333;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%; /* Ensure inputs take full width of their flex item */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.profile-item-row input:focus,
+.profile-item-row select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.profile-item-row input[disabled] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.profile-details h3 button:first-of-type {
+  margin-right: 10px; /* Space between Cancel and Save buttons */
+}

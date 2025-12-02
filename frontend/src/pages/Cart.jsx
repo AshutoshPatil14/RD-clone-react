@@ -27,6 +27,7 @@ const Cart = () => {
         if (response.status === 200) {
           setCartItems(response.data);
         }
+        
       } catch (error) {
         toast.error(error.response?.data?.message || "Failed to fetch cart items");
         setCartItems([]);

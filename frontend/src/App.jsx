@@ -27,7 +27,6 @@ import AllProducts from "./pages/AllProducts";
 import ProductsAddedBySeller from "./pages/ProductsAddedBySeller";
 import SearchResultsPage from "./pages/SearchResultsPage";
 
-
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -65,22 +64,18 @@ function App() {
 
         {/* Account */}
         <Route path="/account" element={<MyAccount />} />
-        <Route path="/account/orders" element={<MyOrders />} />
-        <Route path="/account/addresses" element={<MyAddresses />} />
-        {/* Payment */}
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/payment/success" element={<PaymentSuccess />} />
-        <Route path="/payment/failed" element={<PaymentFailed />} />
-        {/* User */}
-        <Route path="/wishlist" element={<MyWishlist />} />
         {/* Seller */}
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/view-products" element={<ProductsAddedBySeller />} />
         <Route path="/all-products" element={<AllProducts />} />
         <Route path="/edit-product/:id" element={<EditProductPage />} />
         <Route path="/search" element={<SearchResultsPage />} />
+        {/* Payment */}
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/payment/success" element={<PaymentSuccess />} />
+        <Route path="/payment/failed" element={<PaymentFailed />} />
 
-
+        
       </Routes>
       <Footer />
       <Toaster

@@ -1,37 +1,45 @@
-import "../styles/my-account.css";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import MyProfile from "../components/MyProfile";
+import MyOrders from "../components/MyOrders";
+import MyAddresses from "../components/MyAddresses";
+import MyWishlist from "../pages/MyWishlist";
+import AccountSidebar from "../components/AccountSidebar";
+import "../styles/account.css";
 
-// My Account page: profile details
 const MyAccount = () => {
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const [activeComponent, setActiveComponent] = useState("MyProfile");
+
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
+
+  const renderActiveComponent = () => {
+    switch (activeComponent) {
+      case "MyProfile":
+        return <MyProfile />;
+      case "MyOrders":
+        return <MyOrders />;
+      case "MyAddresses":
+        return <MyAddresses />;
+      case "MyWishlist":
+        return <MyWishlist />;
+      default:
+        return <MyProfile />;
+    }
+  };
+
   return (
-    <div className="profile-details-container">
-      <div className="heading">
-        <h2>My Profile</h2>
+    <div className="account-page-container">
+      <div className="account-sidebar-wrapper">
+        <AccountSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
       </div>
-
-      <div className="profile-details">
-        <div className="profile-details-header">
-          <p>Personal Details</p>
-          <button className="edit-btn">
-            <img src="/icons/edit_24dp_FFFFFF_FILL1_wght400_GRAD0_opsz24.svg" alt="edit" />
-            <span>Edit Profile</span>
-          </button>
-        </div>
-
-        <div className="profilea_info">
-          {[
-            ["First Name", "Ashutosh"],
-            ["Last Name", "Patil"],
-            ["Date Of Birth", "DD/MM/YYYY"],
-            ["Gender", "Male"],
-            ["Email Address", "ashutosh.patil1409@gmail.com"],
-            ["Mobile Number", "9130747809"],
-          ].map(([label, value]) => (
-            <div className="info-row" key={label}>
-              <span className="label">{label}</span>
-              <span className="value">{value}</span>
-            </div>
-          ))}
-        </div>
+      <div className="account-content-wrapper">
+        {renderActiveComponent()}
       </div>
     </div>
   );
