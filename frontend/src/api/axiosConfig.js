@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: ["http://localhost:3000/api/v1", "https://rd-clone-react.onrender.com/api/v1"],
+  baseURL: import.meta.env.PROD
+    ? import.meta.env.VITE_API_BASE_URL_PRODUCTION
+    : import.meta.env.VITE_API_BASE_URL_DEVELOPMENT,
   withCredentials: true,
 });
 

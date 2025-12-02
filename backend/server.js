@@ -12,9 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://rd-clone-react.vercel.app"],
+  origin: ["https://rd-clone-react.vercel.app", "http://localhost:5173"],
   credentials: true,
-  secure: true,
 };
 
 app.use(cors(corsOptions));
@@ -74,23 +73,23 @@ app.use("/api/v1", mainRouter);
 //   }
 // });
 
-// app.get("/unwinding-project", async (req, res) => {
-//   try {
-//     const products = await Product.aggregate([
-//       {
-//         $project: {
-//           _id: 0,
-//           name: 1,
-//           stock: 1,
-//           price: 1,
-//         },
-//       },
-//     ]);
-//     res.status(200).json(products);
-//   } catch (err) {
-//     res.status(500).json({ message: err });
-//   }
-// });
+app.get("/unwinding-project", async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      {
+        $project: {
+          _id: 0,
+          name: 1,
+          stock: 1,
+          price: 1,
+        },
+      },
+    ]);
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
