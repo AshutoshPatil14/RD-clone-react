@@ -11,7 +11,10 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = { origin: ["http://localhost:5173", "https://rd-clone-react.vercel.app"], credentials: true };
+const corsOptions = {
+  origin: ["https://rd-clone-react.vercel.app", "http://localhost:5173"],
+  credentials: true,
+};
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -72,14 +75,16 @@ app.get("/matching-grouping", async (req, res) => {
 
 app.get("/unwinding-project", async (req, res) => {
   try {
-    const products = await Product.aggregate([{
-      $project:{
-        _id:0,
-        name:1,
-        stock:1,
-        price:1,
-      }
-    }])
+    const products = await Product.aggregate([
+      {
+        $project: {
+          _id: 0,
+          name: 1,
+          stock: 1,
+          price: 1,
+        },
+      },
+    ]);
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ message: err });
