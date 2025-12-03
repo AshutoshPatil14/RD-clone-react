@@ -19,7 +19,7 @@ const MyProfile = () => {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [user]);
   console.log(editedUser)
   
   const handleSave = async () => {

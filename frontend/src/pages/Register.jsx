@@ -111,7 +111,7 @@ const Register = () => {
     if (user?.userId) {
       router("/");
     }
-  }, [user]);
+  }, [user, router]);
   return (
     <div className="logreg-container">
       <div className="reg-form">

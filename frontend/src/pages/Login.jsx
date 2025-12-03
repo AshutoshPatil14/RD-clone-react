@@ -84,7 +84,7 @@ const Login = () => {
     if (user?.userId) {
       router("/");
     }
-  }, [user]);
+  }, [user, router]);
 
   return (
     <div className="logreg-container">
