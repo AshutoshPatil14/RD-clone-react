@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import api from "../api/axiosConfig";
-import { clearCart } from "../features/cartSlice";
 import "../styles/payment.css";
 
 const Payment = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth.user);
-  const { cartItems } = useSelector((state) => state.cart);
-  console.log(user)
+
+  let { user } = useSelector((state) => state.auth);
+  console.log(user);
+
+  const [cartItems, setCartItems] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("COD"); // Default to Cash on Delivery
 
   useEffect(() => {
+    toast("Do not refresh the page.")
     if (!user) {
       toast.error("Please login to proceed with payment.");
       navigate("/login");
     }
-    if (cartItems.length === 0) {
-      toast.error("Your cart is empty. Please add items to cart.");
-      navigate("/cart");
-    }
-  }, [user, cartItems, navigate]);
+    const getCartProducts = async () => {
+      const response = await api.get(`/cart/get-cart-products/${user.userId}`);
+      setCartItems(response.data);
+    };
+    getCartProducts();
+  }, []);
 
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -49,22 +51,22 @@ const Payment = () => {
 
     try {
       const orderData = {
-        userId: user._id,
+        userId: user.userId,
         items: cartItems.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
           price: item.price,
         })),
-        totalAmount: calculateTotalPrice(),
+        totalPrice: calculateTotalPrice(),
         paymentMethod: paymentMethod,
-        shippingAddress: user.shippingAddress || "Default Address", // Assuming user has a default address or will add one
+        address: user.shippingAddress || "Default Address", // Assuming user has a default address or will add one
       };
 
-      const response = await api.post("/orders/create", orderData);
+      const response = await api.post("/order/place-order", orderData);
 
       if (response.status === 201) {
         toast.success("Order placed successfully!");
-        dispatch(clearCart());
+
         navigate("/payment/success");
       } else {
         toast.error("Failed to place order.");
@@ -91,7 +93,9 @@ const Payment = () => {
           <h3>Order Summary</h3>
           {cartItems.map((item) => (
             <div key={item.productId} className="summary-item">
-              <span>{item.name} (x{item.quantity})</span>
+              <span>
+                {item.name} (x{item.quantity})
+              </span>
               <span>₹{(item.price * item.quantity).toLocaleString()}</span>
             </div>
           ))}
@@ -127,7 +131,9 @@ const Payment = () => {
           </div>
 
           <button type="submit" className="payment-button" disabled={loading}>
-            {loading ? "Placing Order..." : `Place Order for ₹${calculateTotalPrice().toLocaleString()}`}
+            {loading
+              ? "Placing Order..."
+              : `Place Order for ₹${calculateTotalPrice().toLocaleString()}`}
           </button>
         </form>
       </div>

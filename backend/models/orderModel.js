@@ -19,7 +19,7 @@ const orderSchema = new mongoose.Schema(
       },
     ],
 
-    totalAmount: {
+    totalPrice: {
       type: Number,
       required: true,
     },
@@ -27,6 +27,11 @@ const orderSchema = new mongoose.Schema(
     address: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Address",
+      required: true,
+    },
+
+    paymentMethod: {
+      type: String,
       required: true,
     },
 
