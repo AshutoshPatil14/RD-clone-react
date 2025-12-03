@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./MyProfile.css";
 import toast from "react-hot-toast";
@@ -10,7 +10,18 @@ const MyProfile = () => {
   const [editedUser, setEditedUser] = useState(user || {});
   const dispatch = useDispatch();
 
-
+  
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const response = await api.get(`/user/get-user/${user.userId}`);
+      if (response.status === 200) {
+        setEditedUser(response.data.user);
+      }
+    };
+    fetchUserProfile();
+  }, []);
+  console.log(editedUser)
+  
   const handleSave = async () => {
     try {
       const response = await api.put(`/user/update-user/${user.userId}`, editedUser);
@@ -25,6 +36,23 @@ const MyProfile = () => {
       console.error("Error updating user profile:", error);
       toast.error("Error updating user profile. Please try again.");
     }
+  };
+
+  const formatDisplayDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "N/A";
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const formatInputDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "";
+    return date.toISOString().split('T')[0];
   };
 
   return (
@@ -54,7 +82,7 @@ const MyProfile = () => {
               onChange={(e) => setEditedUser({ ...editedUser, fname: e.target.value })}
             />
           ) : (
-            <span>{user?.fname || "N/A"}</span>
+            <span>{editedUser?.fname || "N/A"}</span>
           )}
         </div>
         <div className="profile-item-row">
@@ -66,7 +94,7 @@ const MyProfile = () => {
               onChange={(e) => setEditedUser({ ...editedUser, lname: e.target.value })}
             />
           ) : (
-            <span>{user?.lname || "N/A"}</span>
+            <span>{editedUser?.lname || "N/A"}</span>
           )}
         </div>
         <div className="profile-item-row">
@@ -74,11 +102,11 @@ const MyProfile = () => {
           {isEditing ? (
             <input
               type="date"
-              value={editedUser?.dateOfBirth || ""}
+              value={formatInputDate(editedUser?.dateOfBirth)}
               onChange={(e) => setEditedUser({ ...editedUser, dateOfBirth: e.target.value })}
             />
           ) : (
-            <span>{user?.dateOfBirth || "DD/MM/YYYY"}</span>
+            <span>{formatDisplayDate(editedUser?.dateOfBirth)}</span>
           )}
         </div>
         <div className="profile-item-row">
@@ -94,7 +122,7 @@ const MyProfile = () => {
               <option value="Other">Other</option>
             </select>
           ) : (
-            <span>{user?.gender || "N/A"}</span>
+            <span>{editedUser?.gender || "N/A"}</span>
           )}
         </div>
         <div className="profile-item-row">
@@ -115,11 +143,11 @@ const MyProfile = () => {
           {isEditing ? (
             <input
               type="text"
-              value={editedUser?.mobileNumber || ""}
-              onChange={(e) => setEditedUser({ ...editedUser, mobileNumber: e.target.value })}
+              value={editedUser?.phone || ""}
+              onChange={(e) => setEditedUser({ ...editedUser, phone: e.target.value })}
             />
           ) : (
-            <span>{user?.mobileNumber || "N/A"}</span>
+            <span>{editedUser?.phone ? <div className="number">{editedUser.phone}</div> : "N/A"}</span>
           )}
         </div>
       </div>

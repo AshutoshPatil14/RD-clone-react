@@ -79,6 +79,7 @@ const Register = () => {
             confPassword: "",
             gender: "",
           });
+          router("/login");
         } else {
           setErrors(response.data.errors);
         }
