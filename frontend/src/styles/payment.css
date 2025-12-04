@@ -1,6 +1,8 @@
 /* frontend/src/styles/payment.css */
 
 .payment-page {
+    display: flex;
+    flex-direction: column;
     max-width: 800px;
     margin: 40px auto;
     padding: 30px;
@@ -18,12 +20,15 @@
 
 .payment-container {
     display: flex;
+    flex-direction: column;
     gap: 30px;
     flex-wrap: wrap;
 }
 
 .order-summary {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+
     min-width: 300px;
     padding: 20px;
     border: 1px solid #eee;
@@ -32,24 +37,50 @@
 }
 
 .order-summary h3 {
-    font-size: 22px;
-    color: #e32729;
+    justify-content: center;
+    font-size: 20px;
+    color: #333;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e32729;
+    border-bottom: 1px solid #eee;
 }
 
 .summary-item {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 15px;
     font-size: 16px;
     color: #555;
+}
+
+.summary-item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+
+.summary-item > div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.summary-item > div > span:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.summary-item > div > span:last-child {
+    font-size: 14px;
+    color: #777;
 }
 
 .summary-total {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #eee;
@@ -68,11 +99,11 @@
 }
 
 .payment-form h3 {
-    font-size: 22px;
-    color: #e32729;
+    font-size: 20px;
+    color: #333;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e32729;
+    border-bottom: 1px solid #eee;
 }
 
 .payment-options label {
@@ -90,12 +121,12 @@
 
 .payment-button {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background-color: #e32729;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 20px;
@@ -108,4 +139,69 @@
 .payment-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+.address-container {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.address-container h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.address-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.address-item:hover {
+    border-color: #e32729;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.address-item input[type="radio"] {
+    margin-right: 15px;
+    margin-top: 3px; /* Align radio button with the first line of text */
+    transform: scale(1.2);
+    accent-color: #e32729; /* Highlight color for radio button */
+}
+
+.address-item label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.address-item label p {
+    margin: 0;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.address-item input[type="radio"]:checked + label p {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .payment-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
