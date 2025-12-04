@@ -1,10 +1,10 @@
 import express from "express";
 import { getAllUsers, getAllProducts, getAllOrders } from "../controllers/adminController.js";
 
-const adminRoutes = express.Router();
+const adminRouter = express.Router();
 
-adminRoutes.get("/users", getAllUsers);
-adminRoutes.get("/products", getAllProducts);
-adminRoutes.get("/orders", getAllOrders);
+adminRouter.get("/users", getAllUsers);
+adminRouter.get("/products", getAllProducts);
+adminRouter.get("/orders", getAllOrders);
 
-export default adminRoutes;
+export default adminRouter;
