@@ -174,7 +174,9 @@
 }
 
 .orders-list {
-    display: grid;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
     gap: 20px;
 }
 

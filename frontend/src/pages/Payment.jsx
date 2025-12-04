@@ -115,7 +115,7 @@ const Payment = () => {
           quantity: item.quantity,
           price: item.product.price,
         })),
-        totalPrice: calculateTotalPrice(),
+        totalAmount: calculateTotalPrice(),
         paymentMethod: paymentMethod,
         addressId: selectedAddressId, // Use the selected address
       };

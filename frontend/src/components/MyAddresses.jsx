@@ -160,6 +160,7 @@ const AddressForm = ({ address, onSave, onCancel }) => {
               type="text"
               name="pincode"
               value={formData.pincode}
+              maxLength={6}
               onChange={handleChange}
               required
             />
@@ -190,6 +191,7 @@ const AddressForm = ({ address, onSave, onCancel }) => {
               type="text"
               name="mobile"
               value={formData.mobile}
+              maxLength={10}
               onChange={handleChange}
               required
             />
