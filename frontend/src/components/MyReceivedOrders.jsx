@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import api from "../api/axiosConfig";
 
-const MyOrders = () => {
+const MyReceivedOrders = () => {
   const { user } = useSelector((state) => state.auth);
-  const [orders, setOrders] = useState([]);
+  const [receivedOrders, setReceivedOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -14,19 +14,25 @@ const MyOrders = () => {
       setLoading(false);
       return;
     }
+
     try {
       setLoading(true);
-      const response = await api.get(`/user/order/get-orders/${user.userId}`);
+
+      const response = await api.post("/seller/orders/get-seller-orders", {
+        userId: user.userId,
+      });
+
       if (response.status === 200) {
-        setOrders(response.data.orders);
+        setReceivedOrders(response.data.orders || []);
       } else {
         toast.error("Failed to fetch orders.");
         setError("Failed to fetch orders.");
       }
+
     } catch (err) {
-      console.error("Error fetching orders:", err);
-      toast.error(err.response?.data?.message || "An error occurred while fetching orders.");
-      setError(err.response?.data?.message || "An error occurred while fetching orders.");
+      toast.error(err.response?.data?.message || "Failed to load orders");
+      setError(err.response?.data?.message || "Failed to load orders");
+
     } finally {
       setLoading(false);
     }
@@ -36,31 +42,42 @@ const MyOrders = () => {
     fetchOrders();
   }, []);
 
-  console.log(orders)
+  console.log(receivedOrders)
+
   return (
     <div className="my-orders-container">
-      <h2>My Orders</h2>
+      <h2>My Received Orders</h2>
+
       {loading && <p>Loading orders...</p>}
       {error && <p className="error-message">Error: {error}</p>}
-      {!loading && !error && orders.length === 0 && <p>No orders found.</p>}
-      {!loading && !error && orders.length > 0 && (
+      {!loading && !error && receivedOrders.length === 0 && <p>No orders found.</p>}
+
+      {!loading && !error && receivedOrders.length > 0 && (
         <div className="orders-list">
-          {orders.map((order) => (
+          {receivedOrders.map((order) => (
             <div key={order._id} className="order-card">
               <h3>Order ID: {order._id}</h3>
+
               <div className="order-products">
                 <h4>Products:</h4>
-                {order.products.map((item) => (
+
+                {order.products?.map((item) => (
                   <div key={item._id} className="order-product-item">
+                    <img
+                      src={item.imgUrl}
+                      alt={item.name}
+                      className="order-product-img"
+                    />
                     <p>
-                      <img src={item.productId.imgUrl} alt={item.productId.name} className="order-product-img" />
-                      {item.productId.name} (x{item.quantity}) - ₹{item.price.toLocaleString()}
+                      {item.name} (x{item.quantity}) — ₹
+                      {item.price.toLocaleString()}
                     </p>
                   </div>
                 ))}
               </div>
+
               <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-              <p>Total Amount: ₹{order.totalAmount.toLocaleString()}</p>
+              <p>Total Amount: ₹{order.totalAmount?.toLocaleString()}</p>
               <p>Payment Method: {order.paymentMethod}</p>
               <p>Status: {order.status}</p>
             </div>
@@ -71,4 +88,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default MyReceivedOrders;

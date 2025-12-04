@@ -125,7 +125,7 @@ const Payment = () => {
       const response = await api.post("/user/order/create-order", orderData);
 
       if (response.status === 201) toast.success("Order placed successfully!");
-      
+      navigate("/cart")
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred while placing your order.");
       navigate("/payment/failed");

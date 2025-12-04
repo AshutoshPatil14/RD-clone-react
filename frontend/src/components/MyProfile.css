@@ -101,3 +101,96 @@
 .profile-details h3 button:first-of-type {
   margin-right: 10px; /* Space between Cancel and Save buttons */
 }
+
+/* Tablet responsiveness */
+@media screen and (max-width: 768px) {
+  .my-profile-container {
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  .my-profile-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .profile-details {
+    padding: 15px;
+  }
+
+  .profile-details h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+  }
+
+  .profile-details h3 button {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+
+  .profile-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 0;
+  }
+
+  .profile-item-row label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .profile-item-row span,
+  .profile-item-row input,
+  .profile-item-row select {
+    flex: none;
+    width: 100%;
+    font-size: 15px;
+  }
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 480px) {
+  .my-profile-container {
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .my-profile-container h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .profile-details {
+    padding: 10px;
+  }
+
+  .profile-details h3 {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .profile-details h3 button {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+    margin-right: 0 !important; /* Override tablet style */
+  }
+
+  .profile-item-row {
+    padding: 6px 0;
+  }
+
+  .profile-item-row label {
+    font-size: 14px;
+  }
+
+  .profile-item-row span,
+  .profile-item-row input,
+  .profile-item-row select {
+    font-size: 14px;
+    padding: 7px 8px;
+  }
+}

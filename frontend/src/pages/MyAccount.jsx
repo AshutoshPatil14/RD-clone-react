@@ -7,6 +7,7 @@ import MyAddresses from "../components/MyAddresses";
 import MyWishlist from "../pages/MyWishlist";
 import AccountSidebar from "../components/AccountSidebar";
 import "../styles/account.css";
+import MyReceivedOrders from "../components/MyReceivedOrders";
 
 const MyAccount = () => {
   const { user } = useSelector((state) => state.auth);
@@ -24,6 +25,8 @@ const MyAccount = () => {
         return <MyProfile />;
       case "MyOrders":
         return <MyOrders />;
+      case "MyReceivedOrders":
+        return <MyReceivedOrders />;
       case "MyAddresses":
         return <MyAddresses />;
       case "MyWishlist":

@@ -204,6 +204,11 @@
   .product-card span {
     font-size: 16px;
   }
+
+  .product-action-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -212,7 +217,149 @@
   }
 
   .product-card {
-    width: 90%;
-    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .product-card img {
+    height: 150px;
+  }
+
+  .product-card h3 {
+    font-size: 14px;
+    height: auto;
+  }
+
+  .product-card p {
+    height: auto;
+  }
+
+  .product-action-btn-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 768px) {
+  .all-products-page {
+    padding: 15px;
+  }
+
+  .all-products-page h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .content-container {
+    flex-direction: column;
+  }
+
+  .filter-section {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .filter-section h2 {
+    font-size: 20px;
+  }
+
+  .filter-group h3 {
+    font-size: 16px;
+  }
+
+  .filter-group select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .color-filter-label {
+    font-size: 14px;
+  }
+
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .product-card {
+    padding: 12px;
+  }
+
+  .product-card img {
+    height: 180px;
+  }
+
+  .product-card h3 {
+    font-size: 15px;
+  }
+
+  .product-card span {
+    font-size: 16px;
+  }
+
+  .product-action-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .all-products-page {
+    padding: 10px;
+  }
+
+  .all-products-page h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .filter-section {
+    padding: 10px;
+  }
+
+  .filter-section h2 {
+    font-size: 18px;
+  }
+
+  .filter-group h3 {
+    font-size: 14px;
+  }
+
+  .filter-group select {
+    font-size: 13px;
+    padding: 6px;
+  }
+
+  .color-filter-label {
+    font-size: 13px;
+  }
+
+  .products-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .product-card {
+    padding: 10px;
+  }
+
+  .product-card img {
+    height: 150px;
+  }
+
+  .product-card h3 {
+    font-size: 14px;
+  }
+
+  .product-card span {
+    font-size: 15px;
+  }
+
+  .product-action-btn {
+    padding: 7px 10px;
+    font-size: 12px;
   }
 }
