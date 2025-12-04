@@ -1,31 +1,23 @@
 import Order from "../models/orderModel.js";
 
-export const placeOrder = async (req, res) => {
-  try {
-    const { userId, items } = req.body;
+export const createOrder = async (req, res) => {
+  const orderData = req.body;
+    // console.log(orderData);
 
-    const calculateTotalPrice = (items) => {
-      return items.reduce((total, item) => total + item.price * item.quantity, 0);
-    };
-    // Create a new order
-    const order = new Order({
-      userId,
-      products: items.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      totalPrice: calculateTotalPrice(items),
-      paymentMethod: req.body.paymentMethod,
-      address: req.body.address,
-      status: "pending",
-    });
+  const { userId, products, totalAmount, paymentMethod, addressId } = orderData;
 
-    // Save the order to the database
-    await order.save();
+  // Create a new order instance
 
-    res.status(201).json({ message: "Order placed successfully", order });
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error", error: error.message });
-  }
+  const newOrder = new Order({
+    userId,
+    products,
+    totalAmount,
+    paymentMethod,
+    addressId,
+  });
+
+//   console.log(newOrder)
+  const savedOrder = await newOrder.save();
+
+  res.status(201).json({ message: "Order placed successfully", order: savedOrder });
 };
