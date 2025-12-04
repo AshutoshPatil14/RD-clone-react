@@ -61,6 +61,8 @@ const Login = () => {
           toast.success(
             `Hi ${response.data.user.name || userDetails.email}, \nYou are logged in successfully`
           );
+          // Redirect based on role
+
           setUserDetails({ role: "", email: "", password: "" });
         } else {
           setErrors(response.data.errors);

@@ -165,3 +165,235 @@
     font-size: 18px;
     color: #666;
 }
+
+/* MyOrders Component Styles */
+.my-orders-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.orders-list {
+    display: grid;
+    gap: 20px;
+}
+
+.order-card {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.order-card h3 {
+    font-size: 18px;
+    color: #e32729;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.order-card p {
+    
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.order-product-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.order-product-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.order-product-item p {
+    margin: 0;
+    font-size: 15px;
+    color: #333;
+}
+
+/* Responsive adjustments for account.css */
+@media screen and (max-width: 768px) {
+    .account-page-container {
+        flex-direction: column;
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .account-sidebar-wrapper {
+        flex: none;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .account-content-wrapper {
+        padding: 15px;
+    }
+
+    .account-sidebar ul li button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .my-profile-container h2,
+    .my-orders-container h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .profile-details h3 {
+        font-size: 16px;
+    }
+
+    .profile-details h3 button {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .profile-item-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-item-row label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .order-card {
+        padding: 15px;
+    }
+
+    .order-card h3 {
+        font-size: 16px;
+    }
+
+    .order-product-item img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .order-product-item p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .account-page-container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .account-sidebar-wrapper {
+        padding: 10px;
+    }
+
+    .account-sidebar h3 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .account-sidebar ul li button {
+        font-size: 13px;
+    }
+
+    .account-content-wrapper {
+        padding: 10px;
+    }
+
+    .my-profile-container h2,
+    .my-orders-container h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .profile-details {
+        padding: 15px;
+    }
+
+    .profile-details h3 {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 15px;
+    }
+
+    .profile-details h3 button {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .order-card {
+        padding: 10px;
+    }
+
+    .order-card h3 {
+        font-size: 15px;
+    }
+
+    .order-product-item {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: center;
+    }
+
+    .order-product-item img {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .order-product-item p {
+        font-size: 13px;
+    }
+}
+
+.order-products {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.order-products h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.order-product-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.order-product-item p{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.error-message {
+    color: #e32729;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.order-product-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+}

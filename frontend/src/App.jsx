@@ -7,11 +7,7 @@ import Register from "./pages/Register";
 import MobileSection from "./pages/MobileSection";
 import MobileProducts from "./pages/MobileProducts";
 import EditProductPage from "./pages/EditProductPage";
-
 import MyAccount from "./pages/MyAccount";
-import MyOrders from "./pages/MyOrders";
-import MyAddresses from "./pages/MyAddresses";
-import MyWishlist from "./pages/MyWishlist";
 import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
@@ -26,8 +22,14 @@ import AddProduct from "./pages/AddProduct";
 import AllProducts from "./pages/AllProducts";
 import ProductsAddedBySeller from "./pages/ProductsAddedBySeller";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import AdminLayout from "./admin/AdminLayout";
+import AdminDashboard from "./admin/pages/AdminDashboard";
+import AdminOrders from "./admin/pages/AdminOrders";
+import AdminProducts from "./admin/pages/AdminProducts";
+import AdminUsers from "./admin/pages/AdminUsers";
 
 function App() {
+
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -42,6 +44,8 @@ function App() {
       console.log("error", error);
     }
   }, [dispatch]);
+
+
 
   useEffect(() => {
     if (!user) {
@@ -58,24 +62,32 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
         {/* Mobiles */}
         <Route path="/mobiles" element={<MobileSection />} />
         <Route path="/mobiles/all" element={<MobileProducts />} />
 
         {/* Account */}
         <Route path="/account" element={<MyAccount />} />
+
         {/* Seller */}
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/view-products" element={<ProductsAddedBySeller />} />
         <Route path="/all-products" element={<AllProducts />} />
         <Route path="/edit-product/:id" element={<EditProductPage />} />
         <Route path="/search" element={<SearchResultsPage />} />
+
+        {/* Admin Panel */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="users" element={<AdminUsers />} />
+        </Route>
         {/* Payment */}
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment/success" element={<PaymentSuccess />} />
         <Route path="/payment/failed" element={<PaymentFailed />} />
-
-        
       </Routes>
       <Footer />
       <Toaster

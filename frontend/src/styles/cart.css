@@ -721,6 +721,110 @@ footer {
 
 /* footer ends here */
 
+@media screen and (max-width: 768px) {
+  .upper-header {
+    margin: 0 20px;
+  }
+
+  .text-navs {
+    gap: 20px;
+  }
+
+  .search-bar {
+    width: 40%;
+  }
+
+  .profile-items {
+    gap: 15px;
+  }
+
+  .lower-header {
+    padding: 10px 20px;
+  }
+
+  .cart-container {
+    padding: 0 20px;
+  }
+
+  .cart-body {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .left-body {
+    width: 100%;
+  }
+
+  .right-body {
+    flex: none;
+    width: 100%;
+    min-width: unset;
+    padding: 0;
+  }
+
+  .apply-coupon,
+  .payment-section {
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  .cart-item-card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .card-upper-part {
+    flex-direction: row;
+    width: 100%;
+    min-height: unset;
+    border: none;
+    margin: 0;
+    padding: 0;
+    gap: 15px;
+  }
+
+  .item-img {
+    width: 25%;
+    padding: 0;
+  }
+
+  .item-details {
+    width: 70%;
+    padding: 0;
+  }
+
+  .card-lower-part {
+    width: 100%;
+    justify-content: flex-end;
+    padding-top: 10px;
+  }
+
+  .card-lower-part button {
+    width: auto;
+    padding: 10px 15px;
+  }
+
+  .footer-top {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .footer-content {
+    padding: 40px 20px 0;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .payment-methods {
+    margin-top: 15px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .upper-header {
     margin: 0 12px;
@@ -799,13 +903,14 @@ footer {
 
   .left-body {
     width: 100%;
-    /* margin: auto; */
     min-width: unset;
   }
 
   .cart-item-card {
     border-radius: 0;
     flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
   }
 
   .card-upper-part {
@@ -815,21 +920,25 @@ footer {
     margin: 0;
     padding: 10px 0;
     gap: 0px;
+    flex-direction: column;
   }
 
   .item-img {
-    width: 30%;
+    width: 50%;
     padding: 0;
   }
 
   .item-details {
-    width: 70%;
+    width: 90%;
     flex-wrap: wrap;
+    padding: 0;
+    text-align: center;
   }
 
   .item-description {
     flex-wrap: wrap;
     gap: 5px;
+    align-items: center;
   }
 
   .item-description h3 {
@@ -849,8 +958,13 @@ footer {
     font-size: 12px;
   }
 
+  .delivery-info {
+    justify-content: center;
+  }
+
   .card-lower-part {
     justify-content: space-between;
+    width: 90%;
   }
 
   .card-lower-part button {

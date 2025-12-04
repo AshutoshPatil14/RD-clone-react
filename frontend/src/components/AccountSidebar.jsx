@@ -10,7 +10,7 @@ const AccountSidebar = ({ setActiveComponent, activeComponent }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(user)
+  // console.log(user)
 
   const handleLogout = async () => {
     try {
@@ -42,13 +42,22 @@ const AccountSidebar = ({ setActiveComponent, activeComponent }) => {
           </button>
         </li>
         <li>
-          <button
+          {user.role === "user" && (
+            <button
             onClick={() => setActiveComponent("MyOrders")}
             className={activeComponent === "MyOrders" ? "active" : ""}
           >
             <img src="/icons/orders_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Orders" />
             My Orders
-          </button>
+          </button>)}
+          {user.role === "seller" && (
+            <button
+            onClick={() => setActiveComponent("MyReceivedOrders")}
+            className={activeComponent === "MyReceivedOrders" ? "active" : ""}
+          >
+            <img src="/icons/orders_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Received Orders" />
+            My Received Orders
+          </button>)}
         </li>
         <li>
           <button

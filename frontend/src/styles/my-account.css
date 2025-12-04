@@ -64,6 +64,111 @@
   width: 20px;
 }
 
+@media screen and (max-width: 768px) {
+  .my-account-container {
+    flex-direction: column;
+    padding: 0 15px;
+  }
+
+  .left-section {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .right-section {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .my-account-container {
+    padding: 0 10px;
+  }
+
+  .left-section p {
+    padding: 8px 15px;
+  }
+
+  .profile-name {
+    padding: 15px;
+  }
+
+  .account-links a {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .right-section {
+    padding: 10px;
+  }
+
+  .heading h2 {
+    font-size: 20px;
+  }
+
+  .profile-details-header p {
+    font-size: 16px;
+  }
+
+  .edit-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .profile-info .label {
+    width: 120px;
+  }
+
+  .order-details-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .order-details-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .order-details-card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .delivery-content {
+    grid-template-columns: 1fr;
+  }
+
+  .address-card {
+    padding: 10px;
+  }
+
+  .address-actions button {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .wishlist-items-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wishlist-items-grid .product-card .product-name {
+    height: auto;
+  }
+
+  .wishlist-items-grid .product-card .product-price {
+    font-size: 16px;
+  }
+
+  .wishlist-items-grid .product-card .move-to-cart-btn,
+  .wishlist-items-grid .product-card .remove-from-wishlist-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
 .right-section {
   flex: 1;
   width: 100%; /* Ensure consistent width */
