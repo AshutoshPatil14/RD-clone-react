@@ -60,6 +60,8 @@ export const EmptyCart = async (req, res) => {
 export const BuyNow = async (req, res) => {
   const { userId, productId } = req.body || {};
 
+  // console.log( "userID:", userId, "productID:", productId);
+
   if (!userId || !productId) {
     return res.status(400).json({ message: "Invalid Data Input", success: false });
   }

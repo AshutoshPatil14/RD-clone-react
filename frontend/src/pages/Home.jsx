@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/home.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Home page: hero banner, top deals, and limited time deals
@@ -16,11 +16,15 @@ const Home = () => {
     <div className="home">
       {/* Hero banner */}
       <section className="hero-banner">
-        <img src="/images/hero-banner.jpeg" alt="Hero Banner" />
+        <Link to="/product/6937e4a10fe097fc9cce16c6">
+        <img src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/company/1/applications/645a057875d8c4882b096f7e/theme/pictures/free/original/theme-image-1764239456724.jpeg" alt="Hero Banner" />
+        </Link>
+        <Link to="/product/691eb1087b1d2e3e7c8f5139">
         <img
-          src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/company/1/applications/645a057875d8c4882b096f7e/theme/pictures/free/original/theme-image-1750335740025.gif"
+          src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/company/1/applications/645a057875d8c4882b096f7e/theme/pictures/free/original/theme-image-1761305109384.jpeg"
           alt="Hero Banner"
         />
+        </Link>
       </section>
 
       {/* Top deals cards */}

@@ -4,13 +4,9 @@ import SingleProductPage from "./pages/SingleProductPage";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import MobileSection from "./pages/MobileSection";
-import MobileProducts from "./pages/MobileProducts";
 import EditProductPage from "./pages/EditProductPage";
 import MyAccount from "./pages/MyAccount";
 import Payment from "./pages/Payment";
-import PaymentSuccess from "./pages/PaymentSuccess";
-import PaymentFailed from "./pages/PaymentFailed";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
@@ -27,6 +23,7 @@ import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminOrders from "./admin/pages/AdminOrders";
 import AdminProducts from "./admin/pages/AdminProducts";
 import AdminUsers from "./admin/pages/AdminUsers";
+import OrderConfirmation from "./pages/OrderConfirmation";
 
 function App() {
 
@@ -64,8 +61,7 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Mobiles */}
-        <Route path="/mobiles" element={<MobileSection />} />
-        <Route path="/mobiles/all" element={<MobileProducts />} />
+
 
         {/* Account */}
         <Route path="/account" element={<MyAccount />} />
@@ -86,8 +82,7 @@ function App() {
         </Route>
         {/* Payment */}
         <Route path="/payment" element={<Payment />} />
-        <Route path="/payment/success" element={<PaymentSuccess />} />
-        <Route path="/payment/failed" element={<PaymentFailed />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
       </Routes>
       <Footer />
       <Toaster

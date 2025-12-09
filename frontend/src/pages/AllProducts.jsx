@@ -65,6 +65,7 @@ const AllProducts = () => {
     try {
       const response = await api.post("/cart/buy-now", { productId: product._id, userId });
       toast.success(response.data.message);
+      router("/cart");
     } catch (error) {
       toast.error(error.response?.data?.message || "An unknown error occurred");
     }

@@ -96,6 +96,12 @@ const Payment = () => {
       return;
     }
 
+    if (userAddress.length === 0) {
+      toast("Please add a delivery address in the account section.");
+      setLoading(false);
+      return;
+    }
+
     try {
       if (!selectedAddressId) {
         toast.error("Please select a delivery address.");
@@ -124,11 +130,13 @@ const Payment = () => {
 
       const response = await api.post("/user/order/create-order", orderData);
 
-      if (response.status === 201) toast.success("Order placed successfully!");
-      navigate("/cart")
+      if (response.status === 201) {
+        toast.success("Order placed successfully!");
+        navigate("/order-confirmation");
+      }
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred while placing your order.");
-      navigate("/payment/failed");
+      navigate("/order-confirmation");
     } finally {
       setLoading(false);
     }
