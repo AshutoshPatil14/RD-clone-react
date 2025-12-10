@@ -1,5 +1,18 @@
 import Product from "../models/productModel.js";
 
+export const getHomepageProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      { $match: { isDeleted: false } },
+      { $sample: { size: 5 } }, 
+      { $sort: { createdAt: -1 } }
+    ]);
+    res.status(200).json(products);
+  }catch (error) {
+    res.status(500).json({ message: "Failed to fetch products", error: error.message });
+  }
+}
+
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({ isDeleted: false });

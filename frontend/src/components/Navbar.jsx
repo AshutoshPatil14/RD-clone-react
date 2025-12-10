@@ -133,8 +133,23 @@ const Navbar = () => {
         {/* Mobile search bar and mic icon */}
         <div className="middle-header">
           <div className="mobile-search-bar">
-            <img src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
-            <input type="text" placeholder="Search Products & Brands" />
+            <img
+              src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="Search"
+              onClick={handleSearchSubmit}
+              style={{ cursor: "pointer" }}
+            />
+            <input
+              type="text"
+              placeholder="Search Products & Brands"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchSubmit();
+                }
+              }}
+            />
           </div>
           <div className="mic-icon">
             <img src="/icons/mic_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.svg" alt="" />

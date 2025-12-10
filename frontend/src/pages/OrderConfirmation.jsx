@@ -10,7 +10,7 @@ const OrderConfirmation = () => {
         <h2>Order Confirmed!</h2>
         <p>Your order has been successfully placed.</p>
         <p>Thank you for your purchase!</p>
-        <Link to="/my-orders" className="btn-view-orders">View My Orders</Link>
+        <Link to="/account" className="btn-view-orders">View My Orders</Link>
       </div>
       <Link to="/" className="btn-continue-shopping">Continue Shopping</Link>
     </div>
