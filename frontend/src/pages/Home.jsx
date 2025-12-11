@@ -48,7 +48,7 @@ const Home = () => {
 
       {/* Top deals cards */}
       <section className="top-deals">
-        <h2>LATEST DEALS</h2>
+        <h2>Latest Deals</h2>
         <div className="top-deals-grid">
           {products.map((d, i) => (
             <div className="top-deals-card" key={i} onClick={() => router(`/product/${d._id}`)}>
@@ -61,7 +61,7 @@ const Home = () => {
                   Price:
                   <span>{d.price}</span>
                 </h3>
-                <h5>Color: {d.color}</h5>
+                <h5>Color: <span className="color-span" style={{ color: d.color }}>{d.color}</span></h5>
               </div>
             </div>
           ))}

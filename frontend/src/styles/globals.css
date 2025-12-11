@@ -1,5 +1,23 @@
 :root {
   --site-max: 1300px;
+  --primary-color: #e32729;
+  --primary-dark-color: #c21e20;
+  --secondary-color: #f0f0f0;
+  --secondary-dark-color: #e0e0e0;
+  --text-color: #333;
+  --card-bg-color: #fff;
+  --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --border-color: #e0e0e0;
+
+  /* Button Colors */
+  --button-bg-color: var(--primary-color);
+  --button-text-color: white;
+  --button-hover-bg-color: var(--primary-dark-color);
+  --secondary-button-bg-color: var(--secondary-color);
+  --secondary-button-text-color: var(--text-color);
+  --secondary-button-border-color: var(--border-color);
+  --secondary-button-hover-bg-color: var(--secondary-dark-color);
+  --secondary-button-hover-border-color: var(--secondary-dark-color);
 }
 
 * {
