@@ -11,6 +11,7 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedColor, setSelectedColor] = useState("All");
+  const [showFilters, setShowFilters] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const userId = user?.userId;
 
@@ -24,12 +25,12 @@ const AllProducts = () => {
       } catch (error) {
         toast.error(error.response?.data?.message || "Failed to fetch products");
       } finally {
-        setLoading(false); // Set loading to false after fetch completes
+        setLoading(false); 
       }
     };
 
     fetchProducts();
-  }, []); // Empty dependency array to run once on mount
+  }, []); 
 
   if (loading) {
     return <div className="loading-indicator">Loading products...</div>; // Loading indicator
@@ -73,9 +74,14 @@ const AllProducts = () => {
 
   return (
     <div className="all-products-page">
-      <h1>All Products</h1>
+      <div className="header-container">
+        <h1>All Products</h1>
+        <button className="filter-toggle-button" onClick={() => setShowFilters(!showFilters)}>
+          {showFilters ? "Hide Filters" : "Show Filters"}
+        </button>
+      </div>
       <div className="content-container">
-        <div className="filter-section">
+        <div className={`filter-section ${showFilters ? "show" : ""}`}>
           <h2>Filters</h2>
           <div className="filter-group">
             <h3>Category</h3>
