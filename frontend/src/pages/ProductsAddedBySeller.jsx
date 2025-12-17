@@ -62,7 +62,7 @@ const ProductsAddedBySeller = () => {
 
   return (
     <div className="seller-products-page">
-      <h1>Products Added By Seller</h1>
+      <h1>Products Added By You</h1>
       <div className="products-container">
         {products.length > 0 ? (
           products.map((product) => (

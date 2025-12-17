@@ -32,6 +32,30 @@ body {
   /* overflow-y: hidden; */
 }
 
+/* Global styles */
+
+.products-container {
+  /* flex: 1; Take remaining space */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.product-card {
+  width: 24%; /* Four cards per row with gap */
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
 /* Shared Header Styles */
 header {
   background-color: #e32729;
@@ -173,6 +197,17 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 40px;
   margin-bottom: 40px;
+}
+
+/* Responsive adjustments for product cards and containers */
+@media (max-width: 480px) {
+  .products-container {
+    gap: 10px;
+  }
+
+  .product-card {
+    width: calc(50% - 5px); /* Two cards per row with gap */
+  }
 }
 .footer-section h3 {
   color: #e32729;
@@ -411,7 +446,7 @@ footer {
 
   .profile-items {
     width: 39%;
-    justify-content: space-around;
+    justify-content: flex-end;
     margin-top: 15px;
   }
 

@@ -27,8 +27,13 @@ const AccountSidebar = ({ setActiveComponent, activeComponent }) => {
   return (
     <div className="account-sidebar">
       <div className="user-info">
-        <img src="/icons/account_circle_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="User Avatar" />
-        <span>{user?.fname} {user?.lname}</span>
+        <img
+          src="/icons/account_circle_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg"
+          alt="User Avatar"
+        />
+        <span>
+          {user?.fname} {user?.lname}
+        </span>
       </div>
       <h3>Account</h3>
       <ul>
@@ -37,45 +42,61 @@ const AccountSidebar = ({ setActiveComponent, activeComponent }) => {
             onClick={() => setActiveComponent("MyProfile")}
             className={activeComponent === "MyProfile" ? "active" : ""}
           >
-            <img src="/icons/emoji_people_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Profile" />
+            <img
+              src="/icons/emoji_people_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg"
+              alt="My Profile"
+            />
             My Profile
           </button>
         </li>
         <li>
           {user.role === "user" && (
             <button
-            onClick={() => setActiveComponent("MyOrders")}
-            className={activeComponent === "MyOrders" ? "active" : ""}
-          >
-            <img src="/icons/orders_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Orders" />
-            My Orders
-          </button>)}
+              onClick={() => setActiveComponent("MyOrders")}
+              className={activeComponent === "MyOrders" ? "active" : ""}
+            >
+              <img src="/icons/orders_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Orders" />
+              My Orders
+            </button>
+          )}
           {user.role === "seller" && (
             <button
-            onClick={() => setActiveComponent("MyReceivedOrders")}
-            className={activeComponent === "MyReceivedOrders" ? "active" : ""}
-          >
-            <img src="/icons/orders_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Received Orders" />
-            My Received Orders
-          </button>)}
+              onClick={() => setActiveComponent("MyReceivedOrders")}
+              className={activeComponent === "MyReceivedOrders" ? "active" : ""}
+            >
+              <img
+                src="/icons/orders_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg"
+                alt="My Received Orders"
+              />
+              My Received Orders
+            </button>
+          )}
         </li>
         <li>
           <button
             onClick={() => setActiveComponent("MyAddresses")}
             className={activeComponent === "MyAddresses" ? "active" : ""}
           >
-            <img src="/icons/location_on_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="Delivery Addresses" />
+            <img
+              src="/icons/location_on_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg"
+              alt="Delivery Addresses"
+            />
             Delivery Addresses
           </button>
         </li>
         <li>
-          <button
-            onClick={() => setActiveComponent("MyWishlist")}
-            className={activeComponent === "MyWishlist" ? "active" : ""}
-          >
-            <img src="/icons/favorite_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg" alt="My Wishlist" />
-            My Wishlist
-          </button>
+          {user.role === "user" && (
+            <button
+              onClick={() => setActiveComponent("MyWishlist")}
+              className={activeComponent === "MyWishlist" ? "active" : ""}
+            >
+              <img
+                src="/icons/favorite_24dp_434343_FILL1_wght400_GRAD0_opsz24.svg"
+                alt="My Wishlist"
+              />
+              My Wishlist
+            </button>
+          )}
         </li>
         <li>
           <button onClick={handleLogout}>

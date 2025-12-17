@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import "../styles/my-account.css";
-import { useSelector } from 'react-redux';
-import api from '../api/axiosConfig';
-import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import api from "../api/axiosConfig";
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const MyWishlist = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -49,9 +49,11 @@ const MyWishlist = () => {
   const handleRemoveFromWishlist = async (event, productId) => {
     event.stopPropagation();
     try {
-      const response = await api.delete("/wishlist/remove-from-wishlist", { data: { productId, userId } });
+      const response = await api.delete("/wishlist/remove-from-wishlist", {
+        data: { productId, userId },
+      });
       toast.success(response.data.message);
-      setWishlistItems(prevItems => prevItems.filter(item => item.product._id !== productId));
+      setWishlistItems((prevItems) => prevItems.filter((item) => item.product._id !== productId));
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to remove from wishlist");
     }
@@ -62,14 +64,11 @@ const MyWishlist = () => {
     try {
       const response = await api.post("/cart/add-to-cart", { productId, userId });
       toast.success(response.data.message);
-      setWishlistItems(prevItems => prevItems.filter(item => item.product._id !== productId));
+      setWishlistItems((prevItems) => prevItems.filter((item) => item.product._id !== productId));
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to move to cart");
     }
   };
-
-
-
 
   return (
     <div className="wishlist-container">
@@ -84,18 +83,27 @@ const MyWishlist = () => {
       ) : (
         <div className="wishlist-items-grid">
           {wishlistItems.map((item) => (
-            <div className="product-card" key={item.product._id}>
-              <Link to={`/product/${item.product._id}`}>
-                <img
-                  src={item.product.imgUrl || '/images/placeholder.png'}
-                  alt={item.product.name}
-                  className="product-image"
-                />
-                <h3 className="product-name">{item.product.name}</h3>
-                <p className="product-price">₹{new Intl.NumberFormat('en-IN').format(item.product.price)}</p>
-              </Link>
-              <div className="product-actions">
-                <button className="move-to-cart-btn" onClick={() => handleMoveToCart(event, item.product._id)}>Move to Cart</button>
+            <div className="wishlist-product-card" key={item.product._id}>
+              <div>
+                <Link to={`/product/${item.product._id}`}>
+                  <img
+                    src={item.product.imgUrl || "/images/placeholder.png"}
+                    alt={item.product.name}
+                    className="wishlist-product-image"
+                  />
+                  <h3 className="wishlist-product-name">{item.product.name}</h3>
+                  <p className="wishlist-product-price">
+                    ₹{new Intl.NumberFormat("en-IN").format(item.product.price)}
+                  </p>
+                </Link>
+              </div>
+              <div className="wishlist-product-actions">
+                <button
+                  className="move-to-cart-btn"
+                  onClick={() => handleMoveToCart(event, item.product._id)}
+                >
+                  Move to Cart
+                </button>
                 <button
                   className="remove-from-wishlist-btn"
                   onClick={(event) => handleRemoveFromWishlist(event, item.product._id)}

@@ -94,26 +94,7 @@
   accent-color: #e32729; /* Highlight color for radio buttons */
 }
 
-.products-container {
-  /* flex: 1; Take remaining space */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-}
 
-.product-card {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.2s ease-in-out;
-}
 
 .product-card:hover {
   outline: 2px solid #e32729;
@@ -163,7 +144,7 @@
   background-color: #e32729;
   color: white;
   border: none;
-  padding: 10px;
+  padding: 10px 6px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
@@ -217,19 +198,7 @@
     display: block; /* Show toggle button on mobile */
   }
 
-  .products-container {
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px; /* Add gap for consistent spacing */
-  }
-
-  .product-card {
-    width: 45%;
-    padding: 10px; /* Adjust padding for smaller cards */
-  }
 
   .product-card h3 {
     font-size: 16px;
