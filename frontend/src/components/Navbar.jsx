@@ -30,9 +30,9 @@ const Navbar = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSearchSubmit = () => {
-    if (searchTerm.trim()) {
-      navigate(`/search?query=${searchTerm.trim()}`);
+  const handleSearchSubmit = (query = searchTerm) => {
+    if (query.trim()) {
+      navigate(`/search?query=${query.trim()}`);
     }
   };
 
@@ -172,70 +172,70 @@ const Navbar = () => {
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/jJc56F0NF-menu_Mobiles.png"
               alt="Mobiles"
             />
-            <Link to="/mobiles">MOBILES</Link>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Mobile");}}>MOBILES</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/ro7KmfkN_-menu_Television.png"
               alt="Televisions"
             />
-            <a href="#">TELEVISIONS</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("TV");}}>TELEVISIONS</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/HAT8U8-9N-Primary-Menu.jpeg"
               alt="Washing Machines"
             />
-            <a href="#">WASHING MACHINES</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Washing Machine");}}>WASHING MACHINES</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/MO-msO1GU-menu_Laptop.png"
               alt="Laptops"
             />
-            <a href="#">LAPTOPS</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Laptop");}}>LAPTOPS</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/GhVsBI1rO-Primary-Menu.png"
               alt="Small Appliances"
             />
-            <a href="#">SMALL APPLIANCES</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Mixer Grinder");}}>MIXER GRINDER</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/6kAylQ0cV-menu_Accessories.png"
               alt="Air Conditioners"
             />
-            <a href="#">AIR CONDITIONERS</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Air Conditioner");}}>AIR CONDITIONERS</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/LXuLXjYf5-menu_Earphones.png"
               alt="Earphones"
             />
-            <a href="#">EARPHONES</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Headphone");}}>HEADPHONES</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/2DoKFV_Ss-Primary-Menu.jpeg"
               alt="Tablets"
             />
-            <a href="#">TABLETS</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Tablet");}}>TABLETS</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/mXaE3y_7l-menu_Kitchen-Appliances.png"
               alt="Refrigerators"
             />
-            <a href="#">REFRIGERATORS</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Refrigerator");}}>REFRIGERATORS</Link>
           </div>
           <div className="header-navs">
             <img
               src="https://cdn.jiostore.online/v2/jmd-asp/jdprod/wrkr/misc/pictures/free-icon/original/TvMZUb1Xg-Primary-Menu.png"
               alt="Smart Watches"
             />
-            <a href="#">SMART WATCHES</a>
+            <Link onClick={(e) => {e.preventDefault(); handleSearchSubmit("Smart-Watch");}}>SMART WATCHES</Link>
           </div>
         </nav>
         <div className="filter">

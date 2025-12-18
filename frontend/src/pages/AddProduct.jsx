@@ -113,6 +113,7 @@ function AddProduct() {
             <option value="washing-machine">Washing Machine</option>
             <option value="refrigerator">Refrigerator</option>
             <option value="air-conditioner">Air Conditioner</option>
+            <option value="mixer-grinder">Mixer Grinder</option>
           </select>
         </div>
 
