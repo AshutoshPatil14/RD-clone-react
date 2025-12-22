@@ -1,5 +1,6 @@
 import Cart from "../models/cartModel.js";
 import Wishlist from "../models/wishlistModel.js";
+import User from "../models/userModel.js";
 
 export const GetCartProducts = async (req, res) => {
   const { userId } = req.params || {};
@@ -69,6 +70,12 @@ export const BuyNow = async (req, res) => {
   try {
     let existingCart = await Cart.findOne({ userId });
 
+    const user = await User.findById(userId);
+
+    if (user.role !== "user") {
+      return res.status(403).json({ message: "Only users can buy products", success: false });
+    }
+
     if (!existingCart) {
       existingCart = new Cart({ userId, products: [{ productId, quantity: 1 }] });
       await existingCart.save();
@@ -106,6 +113,12 @@ export const AddProductToCart = async (req, res) => {
   // check for empty fields
   if (!userId || !productId) {
     return res.status(400).json({ message: "Invalid Data Input", success: false });
+  }
+
+  // check if user is a normal user
+  const user = await User.findById(userId);
+  if (user.role !== "user") {
+    return res.status(403).json({ message: "Only users can add products to cart", success: false });
   }
 
   try {
