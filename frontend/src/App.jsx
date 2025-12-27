@@ -86,7 +86,7 @@ function App() {
       </Routes>
       <Footer />
       <Toaster
-        position="bottom-right"
+        position="top-right"
         reverseOrder={true}
         gutter={8}
         containerClassName=""
