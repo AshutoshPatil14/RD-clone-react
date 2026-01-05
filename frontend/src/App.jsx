@@ -24,8 +24,7 @@ import AdminOrders from "./admin/pages/AdminOrders";
 import AdminProducts from "./admin/pages/AdminProducts";
 import AdminUsers from "./admin/pages/AdminUsers";
 import OrderConfirmation from "./pages/OrderConfirmation";
-import { generateToken, messaging } from "./notifications/firebase";
-import { onMessage } from "firebase/messaging";
+
 
 function App() {
 
@@ -49,12 +48,6 @@ function App() {
   useEffect(() => {
     if (!user) {
       getUserData();
-    }
-    if (user) {
-      generateToken()
-      onMessage(messaging, (payload) => {
-        console.log(payload)
-      })
     }
   }, [user, getUserData]);
 
