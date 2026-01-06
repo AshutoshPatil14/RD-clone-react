@@ -5,6 +5,8 @@ import { toast } from "react-hot-toast";
 import "../styles/single-product-page.css";
 import { useSelector } from "react-redux";
 
+import BrandLoader from "../components/BrandLoader";
+
 const SingleProductPage = () => {
   const router = useNavigate();
   const { id } = useParams();
@@ -55,7 +57,7 @@ const SingleProductPage = () => {
   };
 
   if (loading) {
-    return <div className="loading-indicator">Loading product details...</div>;
+    return <BrandLoader />;
   }
 
   if (error) {

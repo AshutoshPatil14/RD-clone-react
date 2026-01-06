@@ -5,6 +5,8 @@ import "../styles/all-products.css"; // Import the new CSS file
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import BrandLoader from "../components/BrandLoader";
+
 const AllProducts = () => {
   const router = useNavigate();
   const [products, setProducts] = useState([]);
@@ -33,7 +35,7 @@ const AllProducts = () => {
   }, []); 
 
   if (loading) {
-    return <div className="loading-indicator">Loading products...</div>; // Loading indicator
+    return <BrandLoader />;
   }
 
   const handleCategoryChange = (event) => {

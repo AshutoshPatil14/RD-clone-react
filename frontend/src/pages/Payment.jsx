@@ -7,6 +7,8 @@ import api from "../api/axiosConfig";
 import "../styles/payment.css";
 
 
+import BrandLoader from "../components/BrandLoader";
+
 const Payment = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -29,6 +31,7 @@ const Payment = () => {
 
   const getCartItems = async () => {
     try {
+      setLoading(true);
       const response = await api.get(`/cart/get-cart-products/${user.userId}`);
       if (response.status === 200) {
         // console.log(response.data)
@@ -41,11 +44,14 @@ const Payment = () => {
       console.error("Error fetching cart items:", error);
       toast.error(error.response?.data?.message || "An error occurred while fetching cart items.");
       return [];
+    } finally {
+      setLoading(false);
     }
   };
 
   const getUserAddress = async () => {
     try {
+      setLoading(true);
       const response = await api.get(`/user/get-user-address/${user.userId}`);
       if (response.status === 200) {
         // console.log(response.data)
@@ -60,6 +66,8 @@ const Payment = () => {
         error.response?.data?.message || "An error occurred while fetching user address."
       );
       return [];
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -141,6 +149,10 @@ const Payment = () => {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return <BrandLoader />;
+  }
 
   if (!user || cartItems.length === 0) {
     return null; // Or a loading spinner/message

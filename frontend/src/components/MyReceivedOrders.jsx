@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import api from "../api/axiosConfig";
 
+import BrandLoader from "./BrandLoader";
+
 const MyReceivedOrders = () => {
   const { user } = useSelector((state) => state.auth);
   const [receivedOrders, setReceivedOrders] = useState([]);
@@ -48,7 +50,7 @@ const MyReceivedOrders = () => {
     <div className="my-orders-container">
       <h2>My Received Orders</h2>
 
-      {loading && <p>Loading orders...</p>}
+      {loading && <BrandLoader />}
       {error && <p className="error-message">Error: {error}</p>}
       {!loading && !error && receivedOrders.length === 0 && <p>No orders found.</p>}
 

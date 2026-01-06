@@ -5,6 +5,8 @@ import api from "../api/axiosConfig";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+import BrandLoader from "../components/BrandLoader";
+
 const MyWishlist = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
@@ -39,7 +41,7 @@ const MyWishlist = () => {
   }, [userId]);
 
   if (loading) {
-    return <div className="loading-indicator">Loading wishlist...</div>;
+    return <BrandLoader />;
   }
 
   if (!isAuthenticated) {

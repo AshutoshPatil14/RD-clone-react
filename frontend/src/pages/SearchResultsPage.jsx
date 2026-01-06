@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../api/axiosConfig';
 import { toast } from 'react-hot-toast';
 import '../styles/search-results.css'; // We will create this CSS file next
+import BrandLoader from "../components/BrandLoader";
 
 const SearchResultsPage = () => {
   const [products, setProducts] = useState([]);
@@ -36,7 +37,7 @@ const SearchResultsPage = () => {
   }, [searchQuery]);
 
   if (loading) {
-    return <div className="search-results-loading">Loading search results...</div>;
+    return <BrandLoader />;
   }
 
   return (

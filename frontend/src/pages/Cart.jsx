@@ -6,6 +6,8 @@ import api from "../api/axiosConfig";
 import { toast } from "react-hot-toast";
 
 // Cart page with two sample items and summary
+import BrandLoader from "../components/BrandLoader";
+
 const Cart = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
@@ -98,7 +100,7 @@ const Cart = () => {
   };
 
   if (loading) {
-    return <div className="loading-indicator">Loading cart...</div>;
+    return <BrandLoader />;
   }
 
   if (!isAuthenticated) {

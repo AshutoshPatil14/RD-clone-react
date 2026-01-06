@@ -5,6 +5,8 @@ import "../styles/products-added-by-seller.css"; // Import the new CSS file
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import BrandLoader from "../components/BrandLoader";
+
 const ProductsAddedBySeller = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ const ProductsAddedBySeller = () => {
   };
 
   if (loading) {
-    return <div className="loading-indicator">Loading products...</div>; // Loading indicator
+    return <BrandLoader />;
   }
 
   if (error) {

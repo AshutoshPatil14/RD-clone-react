@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import api from "../api/axiosConfig";
 import '../styles/edit-product-page.css';
+import BrandLoader from "../components/BrandLoader";
 
 
 const EditProductPage = () => {
@@ -102,7 +103,7 @@ const EditProductPage = () => {
   };
 
   if (loading) {
-    return <div className="loading-message">Loading product details...</div>;
+    return <BrandLoader />;
   }
 
   if (error) {
