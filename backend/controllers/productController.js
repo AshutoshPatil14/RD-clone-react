@@ -57,3 +57,26 @@ export const searchProducts = async (req, res) => {
     res.status(500).json({ message: "Failed to search products", error: error.message });
   }
 };
+
+export const getSuggestions = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(200).json([]);
+    }
+
+    const suggestions = await Product.find({
+      isDeleted: false,
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } },
+      ],
+    })
+      .select("name _id")
+      .limit(10);
+
+    res.status(200).json(suggestions);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch suggestions", error: error.message });
+  }
+};

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
@@ -12,6 +12,43 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestionRef = useRef(null);
+  const mobileSuggestionRef = useRef(null);
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchTerm.trim().length > 1) {
+        try {
+          const response = await api.get(`/products/suggestions?query=${searchTerm}`);
+          setSuggestions(response.data);
+          setShowSuggestions(true);
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+        }
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        (suggestionRef.current && !suggestionRef.current.contains(event.target)) &&
+        (mobileSuggestionRef.current && !mobileSuggestionRef.current.contains(event.target))
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -33,7 +70,14 @@ const Navbar = () => {
   const handleSearchSubmit = (query = searchTerm) => {
     if (query.trim()) {
       navigate(`/search?query=${query.trim()}`);
+      setShowSuggestions(false);
     }
+  };
+
+  const handleSuggestionClick = (id) => {
+    navigate(`/product/${id}`);
+    setShowSuggestions(false);
+    setSearchTerm("");
   };
 
   return (
@@ -47,11 +91,11 @@ const Navbar = () => {
               <img src="/images/logo-white.webp" alt="Reliance Digital Logo" />
             </Link>
           </div>
-          <div className="search-bar">
+          <div className="search-bar" ref={suggestionRef}>
             <img
               src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
               alt="Search"
-              onClick={handleSearchSubmit}
+              onClick={() => handleSearchSubmit()}
               style={{ cursor: "pointer" }}
             />
             <input
@@ -64,7 +108,22 @@ const Navbar = () => {
                   handleSearchSubmit();
                 }
               }}
+              onFocus={() => {
+                if (suggestions.length > 0) setShowSuggestions(true);
+              }}
             />
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="suggestions-list">
+                {suggestions.map((suggestion) => (
+                  <li
+                    key={suggestion._id}
+                    onClick={() => handleSuggestionClick(suggestion._id)}
+                  >
+                    {suggestion.name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="profile-items">
             {!user && (
@@ -132,11 +191,11 @@ const Navbar = () => {
         </div>
         {/* Mobile search bar and mic icon */}
         <div className="middle-header">
-          <div className="mobile-search-bar">
+          <div className="mobile-search-bar" ref={mobileSuggestionRef}>
             <img
               src="/icons/search_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
               alt="Search"
-              onClick={handleSearchSubmit}
+              onClick={() => handleSearchSubmit()}
               style={{ cursor: "pointer" }}
             />
             <input
@@ -149,7 +208,22 @@ const Navbar = () => {
                   handleSearchSubmit();
                 }
               }}
+              onFocus={() => {
+                if (suggestions.length > 0) setShowSuggestions(true);
+              }}
             />
+            {showSuggestions && suggestions.length > 0 && (
+              <ul className="suggestions-list mobile-suggestions">
+                {suggestions.map((suggestion) => (
+                  <li
+                    key={suggestion._id}
+                    onClick={() => handleSuggestionClick(suggestion._id)}
+                  >
+                    {suggestion.name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="mic-icon">
             <img src="/icons/mic_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.svg" alt="" />
