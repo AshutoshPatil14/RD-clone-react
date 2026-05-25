@@ -56,6 +56,7 @@ const Login = () => {
         if (response.status === 200) {
           // Store user data in Redux
           dispatch(loginSuccess(response.data.user));
+          // console.log(response.data.user)
           // console.log("Redux auth state after login:", response.data.user);
 
           toast.success(
@@ -95,7 +96,7 @@ const Login = () => {
           <img src="/images/logo.png" alt="Reliance Digital" />
           <h2>Login to Your Account</h2>
 
-          <select name="role" id="" onChange={roleInputHandler}>
+          <select name="role" id="" onChange={roleInputHandler} >
             <option value="">Select Role</option>
             <option value="user">User</option>
             <option value="seller">Seller</option>
