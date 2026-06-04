@@ -1,1 +1,0 @@
-// formatPrice.js placeholder
